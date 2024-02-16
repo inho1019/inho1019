@@ -9,26 +9,21 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
 <div align="center">
 ## 기술 스택
   
-  ### Main Tech
+   ### Main Tech
   <div>
-    <img src="https://camo.githubusercontent.com/f5a6423978b1ec8260f8008781c18d486d15f7aa851700a1b8660a97a158e8e4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f52656163742d3631444146423f7374796c653d666c61742d737175617265266c6f676f3d5265616374266c6f676f436f6c6f723d626c61636b"/>
-    <img src="https://img.shields.io/badge/SpringLegacy-6DB33F?style=flat&logo=spring&logoColor=white"/>
-    <img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/mybatis-000000?&logo=jpa&logoColor=white"/>
-    <img src="https://img.shields.io/badge/JQuery-0769AD?style=flat&logo=jquery&logoColor=white"/>
-    <img src="https://img.shields.io/badge/BootStrap-7952B3?style=flat&logo=bootstrap&logoColor=white"/>
-    <img src="https://img.shields.io/badge/JSP-F05032?style=flat&logo=JSP&logoColor=white"/>
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
+    <img src="https://img.shields.io/badge/ReactNative-61DAFB?style=flat&logo=react&logoColor=white"/>
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
+    <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white"/>
+    <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
   </div>
-  
+
+<br>
+
   ### Used Skills
   <div>
-    <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=GIT&logoColor=white"/>
-    <img src="https://img.shields.io/badge/SpringLegacy-6DB33F?style=flat&logo=spring&logoColor=white"/>
     <img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/mybatis-000000?&logo=jpa&logoColor=white"/>
-    <img src="https://img.shields.io/badge/JQuery-0769AD?style=flat&logo=jquery&logoColor=white"/>
-    <img src="https://img.shields.io/badge/BootStrap-7952B3?style=flat&logo=bootstrap&logoColor=white"/>
-    <img src="https://img.shields.io/badge/JSP-F05032?style=flat&logo=JSP&logoColor=white"/>
+    <img src ="https://img.shields.io/badge/jpa-6DB33F?&logo=jpa&logoColor=white"/>
   </div>
   
-</div
+</div>
