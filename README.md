@@ -24,6 +24,8 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
   <div>
     <img src="https://img.shields.io/badge/mysql-4479A1?style=flat&logo=mysql&logoColor=white"/>
     <img src ="https://img.shields.io/badge/jpa-6DB33F?&logo=jpa&logoColor=white"/>
+    <img src ="https://img.shields.io/badge/PHP-4e588b?&logo=php&logoColor=white"/>
+    <img src ="https://img.shields.io/badge/JSP-000000?&logo=jsp&logoColor=white"/>
   </div>
   
 </div>
