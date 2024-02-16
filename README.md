@@ -6,8 +6,8 @@
 Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이스 구축 경험을 가지고 있어 **데이터베이스** 활용이 가능합니다. 
 호기심 가지고 탐구하는 태도로 6개월 간의 교육 훈련과 팀 프로젝트, 독학과 개인 프로젝트 제작을 통해 PHP, JSP, Java, SpringBoot,Jpa,React,React Native 등 **다양한 기술**을 경험하고 활용할 수 있는 능력을 갖췄습니다.
 
-<div align="center">
 ## 기술 스택
+<div align="center">
   
    ### Main Tech
   <div>
