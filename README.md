@@ -33,6 +33,12 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
 
 ## GitHub
 
-![Inho's GitHub stats](https://github-readme-stats.vercel.app/api?username=inho1019&theme=radical)
-![Inho's Most Used Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=radical)
+<div align="center">
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=inho1019&theme=radical" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=radical" />
+</div>
+<br>
+
+## Solved
+
 [![Inho's Solved.ac](http://mazassumnida.wtf/api/generate_badge?boj=inho1019)](https://solved.ac/inho1019)
