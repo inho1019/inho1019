@@ -37,3 +37,5 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
   <img height="180em" src="https://github-readme-stats.vercel.app/api?username=inho1019" />
   <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019" />
 </div>
+
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Finho1019&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
