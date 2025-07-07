@@ -1,0 +1,24 @@
+{
+  "name": "inho1019",
+  "version": "1.0.0",
+  "description": "군대에서 코딩에 관심을 가져 독학 후 비트캠프에서 데브옵스 1기 과정을 통해 다양한 기술을 습득하고, 팀 프로젝트에서 부조장을 맡아 팀원들을 이끌고 협업 하여 프로젝트를 성공적으로 제작하였습니다. 풀스택 분야의 역량을 키워 수료 후, 자격증 공부 및 독학으로 자기 개발에 힘쓰고 있습니다. 앞으로도 새로운 도전에 적극적으로 참여하여 더 나은 개발자로 성장하고자 합니다.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inho1019/inho1019.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/inho1019/inho1019/issues"
+  },
+  "homepage": "https://github.com/inho1019/inho1019#readme",
+  "dependencies": {
+    "rss-parser": "^3.13.0"
+  }
+}
