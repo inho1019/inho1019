@@ -29,5 +29,9 @@ jobs:
           git config --local user.email "inho1019@naver.com"
           git config --local user.name "inho1019"
           git add .
-          git commit -m "Update README.md"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Update README.md"
+            git push
+          else
+            echo "No changes to commit"
+          fi
