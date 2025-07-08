@@ -1,8 +1,12 @@
 name: Update Readme
 
 on:
+# 푸시 이벤트가 발생할 때마다 아래 스크립트를 실행한다.
   push:
-
+# 1시간에 한번씩 아래 스크립트를 실행한다.
+  schedule:
+    - cron: "0 */1 * * *"
+# 권힌부여
 permissions:
   contents: write
 
