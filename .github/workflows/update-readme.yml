@@ -1,9 +1,7 @@
 name: Update Readme
 
 on:
-# 1시간에 한번씩 아래 스크립트를 실행한다.
-  schedule:
-    - cron: "0 */1 * * *"
+  push:
 jobs:
   build:
     runs-on: ubuntu-latest
