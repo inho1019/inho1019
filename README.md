@@ -21,7 +21,7 @@
 
 <br>
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=inho1019&theme=dark&border_radius=5&locale=ko&date_format=%5BY.%5Dn.j&card_height=165" alt="GitHub Streak" />&nbsp;
+  <img src="https://streak-stats.demolab.com?user=inho1019&theme=dark&border_radius=5&locale=ko&date_format=%5BY.%5Dn.j&card_height=160" alt="GitHub Streak" />&nbsp;
   <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=dark&count_private=true" />
 </div>
 
