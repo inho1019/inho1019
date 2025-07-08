@@ -37,6 +37,8 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
 </li></ul>
 </details>
 
+### 최신글
+<br>
 
 ### 티스토리 깃허브 연동하기
 
@@ -336,7 +338,7 @@ on:
 # 1시간에 한번씩 아래 스크립트를 실행한다.
   schedule:
     - cron: "0 */1 * * *"
-# 권힌부여
+# 권한부여
 permissions:
   contents: write
 
