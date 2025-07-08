@@ -29,14 +29,14 @@ let text = `## 프론트엔드 개발자를 꿈꾸는 명인호 입니다.
 <br>
 <div align="center">
   <img src="https://streak-stats.demolab.com?user=inho1019&theme=dark&border_radius=4&locale=ko&date_format=%5BY.%5Dn.j&card_height=170" alt="GitHub Streak" />&nbsp;
-  <img height="170px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=dark&count_private=true" />
+  <img height=170 src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=dark&count_private=true" />
 </div>
 
 <br>
 
 ## Blog
 <details open>
-  <summary>최신 목록</summary>
+  <summary>목록</summary>
   <ul>
 
 `;
@@ -64,10 +64,8 @@ const parser = new Parser({
     })
 
     text += `
-    <li>
-      <a href="https://inho-m.tistory.com">전체 글 보러가기</a>
-    </li>
   </ul>
+  <a href="https://inho-m.tistory.com">더보기</a>
 </details>
 
 ## 최신글
