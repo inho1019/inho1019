@@ -58,7 +58,6 @@ const parser = new Parser({
 
     items.map((item) => {
         const {link, title, categories} = item;
-        console.log(link, title, categories);
         text += `<li>
     <a href="${link}">${title}</a>
 </li>`;
