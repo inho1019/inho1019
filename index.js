@@ -5,15 +5,12 @@ import Parser from "rss-parser";
  * README.md
  */
  
-let text = `## 안녕하세요, 풀스택 개발자를 꿈꾸는 명인호 입니다.
+let text = `# 프론트엔드 개발자를 꿈꾸는 명인호 입니다.
+안녕하세요! 프론트엔드 개발자 명인호입니다.
+웹과 모바일 앱 개발에 관심이 많고, React와 React Native를 주로 사용합니다.
+개발 관련 블로그를 운영하고 있으며, 다양한 기술 스택을 활용하여 프로젝트를 진행하고 있습니다.
 
-군대에서 코딩에 관심을 가져 독학 후 비트캠프에서 데브옵스 1기 과정을 통해 다양한 기술을 습득하고, 팀 프로젝트에서 부조장을 맡아 팀원들을 이끌고 협업 하여 프로젝트를 성공적으로 제작하였습니다. 풀스택 분야의 역량을 키워 수료 후, 자격증 공부 및 독학으로 자기 개발에 힘쓰고 있습니다. 앞으로도 새로운 도전에 적극적으로 참여하여 더 나은 개발자로 성장하고자 합니다.
-
-**풀스택 개발 능력**을 가져 프론트엔드와 백엔드 경계를 이해하며 풀스택 개발자로서 양 영역을 아우르는 기술을 효과적으로 활용할 수 있습니다.  
-Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이스 구축 경험을 가지고 있어 **데이터베이스** 활용이 가능합니다. 
-호기심 가지고 탐구하는 태도로 6개월 간의 교육 훈련과 팀 프로젝트, 독학과 개인 프로젝트 제작을 통해 PHP, JSP, Java, SpringBoot,Jpa,React,React Native 등 **다양한 기술**을 경험하고 활용할 수 있는 능력을 갖췄습니다.
-
-## 기술 스택
+# 기술 스택
 <div align="center">
   
   <div>
@@ -26,7 +23,7 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
   
 </div>
 
-## GitHub
+# GitHub
 
 <br>
 <div align="center">
@@ -34,7 +31,7 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
   <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=radical&count_private=true" />
 </div>
 
-## Posts
+# Blog
 <details open>
   <summary>목록</summary>
   <ul>
@@ -66,8 +63,7 @@ const parser = new Parser({
     text += `</ul>
 </details>
 
-### 최신글
-<br>
+## 최신글
 `
 
     if (items.length > 0) {    
