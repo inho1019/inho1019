@@ -9,25 +9,12 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
 ## 기술 스택
 <div align="center">
   
-   ### Main Tech
   <div>
     <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
     <img src="https://img.shields.io/badge/ReactNative-61DAFB?style=flat&logo=react&logoColor=white"/>
     <img src="https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square"/>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
-    <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white"/>
     <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
-  </div>
-
-<br>
-
-  ### Used Skills
-  <div>
-    <img src="https://img.shields.io/badge/mySql-4479A1?style=flat&logo=mysql&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/JPA-6DB33F?&logo=jpa&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/myBatis-bc2819?&logo=mybatis&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/PHP-4e588b?&logo=php&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/JSP-000000?&logo=jsp&logoColor=white"/>
   </div>
   
 </div>
@@ -39,3 +26,21 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
   <img height="180em" src="https://github-readme-stats.vercel.app/api?username=inho1019&theme=radical" />&nbsp;
   <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=radical" />
 </div>
+
+## Posts
+<details open>
+  <summary>목록</summary>
+  <ul>
+
+
+        <li>
+            <a href="https://inho-m.tistory.com/2">테스트</a>
+        </li>
+        
+  </ul>
+</details>
+
+
+### 테스트
+
+<p data-ke-size="size16">test</p>

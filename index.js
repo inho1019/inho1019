@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs';
 import Parser from "rss-parser";
 
 /**
- * README.MD
+ * README.md
  */
  
 let text = `## 안녕하세요, 풀스택 개발자를 꿈꾸는 명인호 입니다.
@@ -16,25 +16,12 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
 ## 기술 스택
 <div align="center">
   
-   ### Main Tech
   <div>
     <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
     <img src="https://img.shields.io/badge/ReactNative-61DAFB?style=flat&logo=react&logoColor=white"/>
     <img src="https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square"/>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
-    <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=SpringBoot&logoColor=white"/>
     <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
-  </div>
-
-<br>
-
-  ### Used Skills
-  <div>
-    <img src="https://img.shields.io/badge/mySql-4479A1?style=flat&logo=mysql&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/JPA-6DB33F?&logo=jpa&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/myBatis-bc2819?&logo=mybatis&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/PHP-4e588b?&logo=php&logoColor=white"/>
-    <img src ="https://img.shields.io/badge/JSP-000000?&logo=jsp&logoColor=white"/>
   </div>
   
 </div>
@@ -48,8 +35,13 @@ Spring Boot를 통한 백엔드 개발과 ERD 설계를 통한 데이터베이�
 </div>
 
 ## Posts
+<details open>
+  <summary>목록</summary>
+  <ul>
 
 `;
+
+const total = 5; // 가져올 글의 개수
 
 // rss-parser 생성
 const parser = new Parser({
@@ -62,19 +54,35 @@ const parser = new Parser({
     // 피드 목록
     const feed = await parser.parseURL('https://inho-m.tistory.com/rss');
 
-    // 최신 5개의 글의 제목과 링크를 가져온 후 text에 추가
-    for (let i = 0; i < 10; i++) {
-        const {title, link} = feed.items[i];
-        console.log(`${i + 1}번째 게시물`);
-        console.log(`추가될 제목: ${title}`);
-        console.log(`추가될 링크: ${link}`);
-        text += `<a href=${link}>${title}</a></br>`;
+    const items = feed.items.filter(item => item.categories.some(category => category.includes('개발'))).slice(0, total);
+
+    items.map((item) => {
+        const {link, title, categories} = item;
+        console.log(link, title, categories);
+        text += `
+        <li>
+            <a href="${link}">${title}</a>
+        </li>
+        `;
+    })
+
+    text += `
+  </ul>
+</details>
+
+`
+
+    if (items.length > 0) {    
+        //최신글 하나 표출
+        text += `
+### ${items[0].title}
+
+${items[0].content}
+`
     }
 
     // README.md 파일 작성
-    writeFileSync('README.md', text, 'utf8', (e) => {
-        console.log(e)
-    })
+    writeFileSync('README.md', text, 'utf8');
 
     console.log('업데이트 완료')
 })();
