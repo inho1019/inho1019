@@ -11,7 +11,7 @@ jobs:
         with:
           node-version: 16
       - name: Install dependencies
-        run: yarn add rss-parser
+        run: yarn install
       - name: Update README
         run: yarn node index.js
       - name: Commit README
