@@ -15,7 +15,7 @@ jobs:
       - name: Install dependencies
         run: yarn add rss-parser
       - name: Update README
-        run: node index.js
+        run: yarn node index.js
       - name: Commit README
         run: |
           git add .
