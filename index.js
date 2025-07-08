@@ -28,12 +28,13 @@ let text = `## 프론트엔드 개발자를 꿈꾸는 명인호 입니다.
 
 <br>
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=inho1019&theme=dark&border_radius=5&locale=ko" alt="GitHub Streak" />&nbsp;
+  <img src="https://streak-stats.demolab.com?user=inho1019&theme=dark&border_radius=5&locale=ko&date_format=%5BY.%5Dn.j&card_height=165" alt="GitHub Streak" />&nbsp;
   <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=inho1019&layout=compact&theme=transparent&count_private=true" />
 </div>
 
 <br>
-# Blog
+
+## Blog
 <details open>
   <summary>목록</summary>
   <ul>
