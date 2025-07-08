@@ -18,8 +18,12 @@ jobs:
         run: yarn node index.js
       - name: Commit README
         run: |
-          git add .
           git config --local user.email "inho1019@naver.com"
           git config --local user.name "inho1019"
-          git commit -m "Update README.md"
-          git push
+          git add README.md
+          if ! git diff --cached --quiet; then
+            git commit -m "Update README.md"
+            git push
+          else
+            echo "No changes to commit"
+          fi
