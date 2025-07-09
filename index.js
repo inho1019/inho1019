@@ -5,7 +5,9 @@ import Parser from "rss-parser";
  * README.md
  */
  
-let text = `<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=36BCF7&width=435&lines=Frontend+engineer+inho_m" alt="Typing SVG" />
+let text = `
+<br/>
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=36BCF7&width=435&lines=Frontend+engineer+inho_m" alt="Typing SVG" />
 
 ## Tech
 <br>
@@ -21,13 +23,12 @@ let text = `<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&siz
   <br/>
   <br/>
   <div style="display: flex; align-items: flex-start;">
-    <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="77" height="77" />
-    <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="77" height="77" />
-    <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="77" height="77" />
-    <img src="https://techstack-generator.vercel.app/graphql-icon.svg" alt="icon" width="77" height="77" />
+    <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="70" height="70" />
+    <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="70" height="70" />
+    <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="70" height="70" />
+    <img src="https://techstack-generator.vercel.app/graphql-icon.svg" alt="icon" width="70" height="70" />
   </div>
 </div>
-<br/>
 
 ## GitHub
 
