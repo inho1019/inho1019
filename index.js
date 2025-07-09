@@ -74,7 +74,8 @@ const parser = new Parser({
         //최신글 하나 표출
         text += `
 <details open>
-<summary>### ${items[0].title}</summary>
+<summary>${items[0].title}</summary>
+
 ${items[0].content}
 </details>
 `
