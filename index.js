@@ -5,8 +5,7 @@ import Parser from "rss-parser";
  * README.md
  */
  
-let text = `## 프론트엔드 개발자를 꿈꾸는 명인호 입니다.
-안녕하세요! 프론트엔드 개발자 명인호입니다.
+let text = `## 프론트엔드 개발자 inho_m 입니다.
 웹과 모바일 앱 개발에 관심이 많고, React와 React Native를 주로 사용합니다.
 개발 관련 블로그를 운영하고 있으며, 다양한 기술 스택을 활용하여 프로젝트를 진행하고 있습니다.
 
@@ -65,7 +64,7 @@ const parser = new Parser({
 
     text += `
   </ul>
-  <a href="https://inho-m.tistory.com">전체글보기/a>
+  <a href="https://inho-m.tistory.com">전체글보기</a>
 </details>
 
 ## 최신글
@@ -74,9 +73,10 @@ const parser = new Parser({
     if (items.length > 0) {    
         //최신글 하나 표출
         text += `
-### ${items[0].title}
-
+<details open>
+<summary style={{fontSize:18}}>${items[0].title}</summary>
 ${items[0].content}
+</details>
 `
     }
 
