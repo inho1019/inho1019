@@ -41,7 +41,7 @@
 ## 최신글
 
 <details open>
-<summary style={{fontSize:18}}>티스토리 깃허브 연동하기</summary>
+<summary>### 티스토리 깃허브 연동하기</summary>
 <p data-ke-size="size16">블로그의 개발 부분 포스팅을 깃허브 README에 자동으로 업로드 하기 위해 티스토리 RSS + 깃허브 액션을 활용하여 자동화 작업을 하기로 했다</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">이해</h3>
