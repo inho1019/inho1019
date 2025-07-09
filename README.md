@@ -1,10 +1,9 @@
-## 프론트엔드 개발자 inho_m 입니다.
-웹과 모바일 앱 개발에 관심이 많고, React와 React Native를 주로 사용합니다.
+<img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=36BCF7&width=435&lines=Frontend+engineer+inho_m" alt="Typing SVG" />
 
 ## Tech
 <br>
 <div align="center">
-  
+  <br/>
   <div>
     <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
     <img src="https://img.shields.io/badge/ReactNative-61DAFB?style=flat&logo=react&logoColor=white"/>
@@ -13,13 +12,15 @@
     <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
   </div>
   <br/>
+  <br/>
   <div style="display: flex; align-items: flex-start;">
-    <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="63" height="63" />
-    <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="63" height="63" />
-    <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="63" height="63" />
-    <img src="https://techstack-generator.vercel.app/graphql-icon.svg" alt="icon" width="63" height="63" />
+    <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="77" height="77" />
+    <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="77" height="77" />
+    <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="77" height="77" />
+    <img src="https://techstack-generator.vercel.app/graphql-icon.svg" alt="icon" width="77" height="77" />
   </div>
 </div>
+<br/>
 
 ## GitHub
 
@@ -43,7 +44,7 @@
   <a href="https://inho-m.tistory.com">전체글보기</a>
 </details>
 
-## Recent Post
+### Recent Post
 
 <details>
 <summary>티스토리 깃허브 연동하기</summary>
