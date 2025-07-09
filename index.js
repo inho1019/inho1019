@@ -7,9 +7,8 @@ import Parser from "rss-parser";
  
 let text = `## 프론트엔드 개발자 inho_m 입니다.
 웹과 모바일 앱 개발에 관심이 많고, React와 React Native를 주로 사용합니다.
-개발 관련 블로그를 운영하고 있으며, 다양한 기술 스택을 활용하여 프로젝트를 진행하고 있습니다.
 
-## 기술 스택
+## Tech
 <br>
 <div align="center">
   
@@ -20,7 +19,13 @@ let text = `## 프론트엔드 개발자 inho_m 입니다.
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/>
     <img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
   </div>
-  
+  <br/>
+  <div style="display: flex; align-items: flex-start;">
+    <img src="https://techstack-generator.vercel.app/github-icon.svg" alt="icon" width="63" height="63" />
+    <img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="63" height="63" />
+    <img src="https://techstack-generator.vercel.app/ts-icon.svg" alt="icon" width="63" height="63" />
+    <img src="https://techstack-generator.vercel.app/graphql-icon.svg" alt="icon" width="63" height="63" />
+  </div>
 </div>
 
 ## GitHub
@@ -67,13 +72,13 @@ const parser = new Parser({
   <a href="https://inho-m.tistory.com">전체글보기</a>
 </details>
 
-## 최신글
+## Recent Post
 `
 
     if (items.length > 0) {    
         //최신글 하나 표출
         text += `
-<details open>
+<details>
 <summary>${items[0].title}</summary>
 <br/>
 ${items[0].content}
