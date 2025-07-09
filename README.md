@@ -1,5 +1,4 @@
-## 프론트엔드 개발자를 꿈꾸는 명인호 입니다.
-안녕하세요! 프론트엔드 개발자 명인호입니다.
+## 프론트엔드 개발자 inho_m 입니다.
 웹과 모바일 앱 개발에 관심이 많고, React와 React Native를 주로 사용합니다.
 개발 관련 블로그를 운영하고 있으며, 다양한 기술 스택을 활용하여 프로젝트를 진행하고 있습니다.
 
@@ -36,13 +35,13 @@
     <a href="https://inho-m.tistory.com/3">티스토리 깃허브 연동하기</a>
 </li>
   </ul>
-  <a href="https://inho-m.tistory.com">전체글보기/a>
+  <a href="https://inho-m.tistory.com">전체글보기</a>
 </details>
 
 ## 최신글
 
-### 티스토리 깃허브 연동하기
-
+<details open>
+<summary style={{fontSize:18}}>티스토리 깃허브 연동하기</summary>
 <p data-ke-size="size16">블로그의 개발 부분 포스팅을 깃허브 README에 자동으로 업로드 하기 위해 티스토리 RSS + 깃허브 액션을 활용하여 자동화 작업을 하기로 했다</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">이해</h3>
@@ -378,3 +377,4 @@ jobs:
 <p data-ke-size="size16">이런식으로...</p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">처음 포스팅이라 설명은 잘 못한것 같지만 그래도 발을 뗀 게 어딘가싶다. 기왕 이렇게 git 연동까지 한거 자주 포스팅을 올리도록 노력해보겠다 ~.~</p>
+</details>
