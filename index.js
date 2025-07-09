@@ -75,7 +75,7 @@ const parser = new Parser({
         text += `
 <details open>
 <summary>${items[0].title}</summary>
-
+<br/>
 ${items[0].content}
 </details>
 `
