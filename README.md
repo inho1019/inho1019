@@ -307,7 +307,7 @@ export const addData = async (token: string, data: Site, message?: string) =&gt;
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">git commit, push 하는 과정을 거쳐야 하기에 바로 반영되지는 않는다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">반영후 다시 getData를 해보면</p>
+<p data-ke-size="size16">반영 후 깃에서 확인시 <b>data.json(env에 설정한 path)</b>파일이 생성된것을 확인, 이후 다시 getData를 해보면</p>
 <p><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-10 오후 12.50.57.png" data-origin-width="705" data-origin-height="316"><span data-url="https://blog.kakaocdn.net/dn/oD8EA/btsPb3UbCpK/KdGihkJRfyatR3kfVXYSkk/img.png" data-phocus="https://blog.kakaocdn.net/dn/oD8EA/btsPb3UbCpK/KdGihkJRfyatR3kfVXYSkk/img.png"><img src="https://blog.kakaocdn.net/dn/oD8EA/btsPb3UbCpK/KdGihkJRfyatR3kfVXYSkk/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FoD8EA%2FbtsPb3UbCpK%2FKdGihkJRfyatR3kfVXYSkk%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="705" height="316" data-filename="스크린샷 2025-07-10 오후 12.50.57.png" data-origin-width="705" data-origin-height="316"/></span></figure>
 </p>
 <p data-ke-size="size16">이렇게 정상적으로 데이터를 가져오는 걸 볼 수 있다.</p>
