@@ -119,7 +119,11 @@
 </a></figure>
 <p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-10 오전 11.11.09.png" data-origin-width="1628" data-origin-height="176"><span data-url="https://blog.kakaocdn.net/dn/QShHj/btsPbpXTWUf/GlEo9Lkhry4m1DeEE2hJ1k/img.png" data-phocus="https://blog.kakaocdn.net/dn/QShHj/btsPbpXTWUf/GlEo9Lkhry4m1DeEE2hJ1k/img.png"><img src="https://blog.kakaocdn.net/dn/QShHj/btsPbpXTWUf/GlEo9Lkhry4m1DeEE2hJ1k/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FQShHj%2FbtsPbpXTWUf%2FGlEo9Lkhry4m1DeEE2hJ1k%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1628" height="176" data-filename="스크린샷 2025-07-10 오전 11.11.09.png" data-origin-width="1628" data-origin-height="176"/></span></figure>
 </p>
-<p data-ke-size="size16"><span style="color: #333333; text-align: start;">깃허브 접속해서 토큰을 발급해 준다. 기한 및 access가능한 repo는 본인 선택이지만 나는 무기한에 해당 프로젝트의<span>&nbsp;</span></span>리포지토리로 제한을 걸었다.</p>
+<p data-ke-size="size16"><span style="color: #333333; text-align: start;">깃허브 접속해서 토큰을 발급해 준다.</span></p>
+<p data-ke-size="size16"><span style="color: #333333; text-align: start;">기한은 본인 선택이지만 나는 무기한으로 설정했다.</span></p>
+<p data-ke-size="size16"><span style="color: #333333; text-align: start;">Repository Access는 되도록 only select repository에서 해당 프로젝트로 설정하길 권장</span></p>
+<p data-ke-size="size16"><b><span style="color: #333333; text-align: start;">Repository Permissions에서 Contents를 read and write로 변경</span></b></p>
+<p data-ke-size="size16"><span style="color: #333333; text-align: start;">발급 후 잘 복사해두자</span></p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">octokit client파일을 생성 (엄밀히 말하면 client라고 지칭하기에는 애매하지만 편의상 지칭)</p>
 <pre id="code_1752109589570" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// /src/shared/api/octokit-client.ts
@@ -169,14 +173,17 @@ export const getData = async () =&gt;  {
 }</code></pre>
 <p data-ke-size="size16">client를 import 후 repos의 getContent 기능 사용<br />owner(본인 깃허브 이름), repo(프로젝트의 repository명), path (파일 경로), ref (브랜치명)를 지정해 주면 해당 파일을 읽고 정보를 가져온다</p>
 <p data-ke-size="size16">노출을 줄이기 위해 env사용</p>
-<pre id="code_1752110523629" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>GITHUB_OWNER="inho1019"
-TARGET_REPO="front-end-magazine"
-TARGET_PATH="data.json"
-TARGET_BRANCH="main"</code></pre>
+<pre id="code_1752110523629" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>VITE_GITHUB_OWNER="inho1019"
+VITE_TARGET_REPO="front-end-magazine"
+VITE_TARGET_PATH="data.json"
+VITE_TARGET_BRANCH="main"</code></pre>
+<p data-ke-size="size16">꼭 접두사로 VITE_를 붙여주자!</p>
+<p data-ke-size="size16"><a href="https://ko.vite.dev/guide/env-and-mode#env-variables" target="_blank" rel="noopener&nbsp;noreferrer">https://ko.vite.dev/guide/env-and-mode#env-variables</a></p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">가져온 정보 중 content 존재여부와 string형식인지 체크, 맞을 경우 base64 디코딩 후 json으로 파싱해서 return 해준다.</p>
 <p data-ke-size="size16">파싱된 데이터는 as로 타입을 주입해 줬다.</p>
-<pre id="code_1752110459781" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>export type Site = {
+<pre id="code_1752110459781" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// /src/shared/model/site/site.ts
+export type Site = {
   url: string;
   name: string;
   description?: string;
@@ -231,9 +238,9 @@ export const addData = async (token: string, data: Site, message?: string) =&gt;
 <table style="border-collapse: collapse; width: 100.465%; height: 784px;" border="1" data-ke-align="alignLeft">
 <tbody>
 <tr>
-<td style="width: 36.8605%;"><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-10 오전 11.32.25.png" data-origin-width="598" data-origin-height="1502"><span data-url="https://blog.kakaocdn.net/dn/cOlzGC/btsPcW7KlNs/RDCURDn711ss5Lud30GW0K/img.png" data-phocus="https://blog.kakaocdn.net/dn/cOlzGC/btsPcW7KlNs/RDCURDn711ss5Lud30GW0K/img.png"><img src="https://blog.kakaocdn.net/dn/cOlzGC/btsPcW7KlNs/RDCURDn711ss5Lud30GW0K/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcOlzGC%2FbtsPcW7KlNs%2FRDCURDn711ss5Lud30GW0K%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="297" height="746" data-filename="스크린샷 2025-07-10 오전 11.32.25.png" data-origin-width="598" data-origin-height="1502"/></span></figure>
+<td style="width: 37.4392%;"><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-10 오전 11.32.25.png" data-origin-width="598" data-origin-height="1502"><span data-url="https://blog.kakaocdn.net/dn/cOlzGC/btsPcW7KlNs/RDCURDn711ss5Lud30GW0K/img.png" data-phocus="https://blog.kakaocdn.net/dn/cOlzGC/btsPcW7KlNs/RDCURDn711ss5Lud30GW0K/img.png"><img src="https://blog.kakaocdn.net/dn/cOlzGC/btsPcW7KlNs/RDCURDn711ss5Lud30GW0K/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcOlzGC%2FbtsPcW7KlNs%2FRDCURDn711ss5Lud30GW0K%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="307" height="771" data-filename="스크린샷 2025-07-10 오전 11.32.25.png" data-origin-width="598" data-origin-height="1502"/></span></figure>
 </td>
-<td style="width: 63.0232%;">
+<td style="width: 62.4445%;">
 <div style="background-color: #1f1f1f; color: #cccccc;">
 <div><span style="color: #cccccc;"> </span><span style="color: #569cd6;">const</span><span style="color: #cccccc;"> [</span><span style="color: #4fc1ff;">token</span><span style="color: #cccccc;">, </span><span style="color: #dcdcaa;">setToken</span><span style="color: #cccccc;">] </span><span style="color: #d4d4d4;">=</span><span style="color: #cccccc;"> </span><span style="color: #dcdcaa;">useState</span><span style="color: #cccccc;">&lt;</span><span style="color: #4ec9b0;">string</span><span style="color: #cccccc;">&gt;(</span><span style="color: #ce9178;">''</span><span style="color: #cccccc;">)</span></div>
 <div><span style="color: #cccccc;"> </span><span style="color: #569cd6;">const</span><span style="color: #cccccc;"> [</span><span style="color: #4fc1ff;">formData</span><span style="color: #cccccc;">, </span><span style="color: #dcdcaa;">setFormData</span><span style="color: #cccccc;">] </span><span style="color: #d4d4d4;">=</span><span style="color: #cccccc;"> </span><span style="color: #dcdcaa;">useState</span><span style="color: #cccccc;">&lt;</span><span style="color: #4ec9b0;">Site</span><span style="color: #cccccc;">&gt;({</span></div>
@@ -309,4 +316,6 @@ export const addData = async (token: string, data: Site, message?: string) =&gt;
 <p data-ke-size="size16">그러나 해당 프로젝트에서는 이 정도 기능이면 딱 과하지 않고 적당한 것 같다.</p>
 <p data-ke-size="size16">삭제 api도 필요할 것 같긴 한데 그건 추후에 진행하고 #2부터 본격적으로 프로젝트 진행을 해보겠다.</p>
 <p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">브런치 #1</p>
+<p data-ke-size="size16"><a href="https://github.com/inho1019/front-end-magazine/tree/%231" target="_blank" rel="noopener&nbsp;noreferrer">https://github.com/inho1019/front-end-magazine/tree/%231</a></p>
 </details>
