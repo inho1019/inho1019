@@ -58,11 +58,11 @@
 <summary>FE magazine 개발기 #3 - RSS Parser 수난기 (with.GitHub Action)</summary>
 <br/>
 <p data-ke-size="size16">본격적으로 데이터를 불러오기 위해 rss 파싱 로직을 짜보았다.</p>
-<p data-ke-size="size16">그러나 진행중 문제가 발생한게 rss 파싱이 예상과는 달리 client-side에서는 접근이 허용되지 않았다.</p>
+<p data-ke-size="size16">그러나 진행 중 문제가 발생한 게 rss 파싱이 예상과는 달리 클라이언트 사이드에서는 접근이 허용되지 않았다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">처음에는 가능하다고 생각하여 rss-parser를 사용하여 사이트 최초입장시&nbsp;<br /><b>사이트 목록 get -&gt; 사이트 목록을 순회하면 각사이트의 rss parsing -&gt; 데이터를 타입에 맞게 활용 가능하도록 정제</b><br />의 과정을 거치게 하려고 하였다. 작업은 순조로웠으나 rss parse 부분에서 에러가 발생, 클라이언트 사이드 환경에서는 rss parser를 가져오는데 제약이 있다는 것을 알게 되었다.</p>
+<p data-ke-size="size16">처음에는 가능하다고 생각하여 rss-parser를 사용하여 사이트 최초입장 시&nbsp;<br /><b>사이트 목록 get -&gt; 사이트 목록을 순회하면 각사이트의 rss parsing -&gt; 데이터를 타입에 맞게 활용 가능하도록 정제</b><br />의 과정을 거치게 하려고 하였다. 작업은 순조로웠으나 rss parse 부분에서 에러가 발생, 클라이언트 사이드 환경에서는 rss parser를 가져오는데 제약이 있다는 것을 알게 되었다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">서버까지 구현하기에는 소요가 많이 든다고 판단, GitHub Action을 사용하여 주기적으로 등록된 사이트 순회하면서 파싱하고 그것을 파일로 저장해두어 그 파일을 fetch하는 형태로 구현하기로 하였다.</p>
+<p data-ke-size="size16">서버까지 구현하기에는 소요가 많이 든다고 판단, GitHub Action을 사용하여 주기적으로 등록된 사이트 순회하면서 파싱하고 그것을 파일로 저장해 두어 그 파일을 fetch 하는 형태로 구현하기로 하였다.</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">RSS Parse 스크립트 만들기</h3>
 <h4 data-ke-size="size20">필요 세팅</h4>
@@ -187,7 +187,7 @@ const parser = new RSSParser();
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size18"><b>0.</b></p>
 <ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>env는 이런식으로 사용하면됨</li>
+<li>env는 이런 식으로 사용하면 됨</li>
 </ul>
 <pre id="code_1752599790269" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>import dotenv from 'dotenv';
 dotenv.config();
@@ -196,7 +196,7 @@ process.env...</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size18"><b>1.</b></p>
 <ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>site.json에서 사이트 정보들을 가져온후 json으로 parse한 이후 강제로 Site타입으로 선언</li>
+<li>site.json에서 사이트 정보들을 가져온 후 json으로 parse 한 이후 강제로 Site타입으로 선언</li>
 </ul>
 <pre id="code_1752598333703" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>const targetSite = process.env.VITE_TARGET_PATH_SITE ?? 'public/site.json';
 const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];</code></pre>
@@ -213,8 +213,8 @@ const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];</code></pr
 <p data-ke-size="size18"><b>3.</b></p>
 <ul style="list-style-type: disc;" data-ke-list-type="disc">
 <li>다시 가져온 feed데이터를 순회하며 각사이트의 설정된 타입에 맞게 데이터를 정제(serialize)해서 return 해준다.</li>
-<li>여기서 createdAt 형태가 사이트마다 다양할경우를 고려해서 valid된 형태를 찾을때까지 다양한 형태시도</li>
-<li>최종 데이터는 "const parsing" 으로 return 이경우 사이트 각각의 parserData[]들이 또 배열로 들어가기에 이중배열이 된다. (parserData[][])</li>
+<li>여기서 createdAt 형태가 사이트마다 다양할 경우를 고려해서 valid 된 형태를 찾을 때까지 다양한 형태시도</li>
+<li>최종 데이터는 "const parsing"으로 return 이경우 사이트 각각의 parserData[]들이 또 배열로 들어가기에 이중배열이 된다. (parserData[][])</li>
 </ul>
 <pre id="code_1752598791942" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
             const parsedData: ParserData[] = items.map(item =&gt; {
@@ -265,16 +265,17 @@ const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];</code></pr
         writeFileSync(targetData, JSON.stringify(data, null, 2), 'utf8');</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
 <h4 data-ke-size="size20">테스트&nbsp;</h4>
-<p data-ke-size="size16">환경에 따라 다른긴하나 단순히 node scripts/action.ts 사용시 오류가 발생할수도 있음, tsx를 활용</p>
+<p data-ke-size="size16">환경에 따라 다르긴 하나 단순히 node scripts/action.ts 사용 시 오류가 발생할 수도 있어 tsx를 활용</p>
 <pre id="code_1752599523188" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code># 세팅에서 설치한 tsx 활용
 npx tsx scripts/action.ts</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">다행히 데이터가 잘 받아오는 것을 알수가 있었다. (꼭 로컬에서 테스트 해보고 push하자)</p>
+<p data-ke-size="size16">다행히 데이터가 잘 받아오는 것을 알 수가 있었다. (꼭 로컬에서 테스트해보고 push 하자)</p>
+<p data-ke-size="size16">&nbsp;</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">GitHub Action 스케줄링</h3>
-<p data-ke-size="size16">이제 GitHub Action으로 주기적으로 데이터가 들어오게 스크립트가 스케줄링으로 돌아가도록 설정하면된다.</p>
+<p data-ke-size="size16">이제 GitHub Action으로 주기적으로 데이터가 들어오게 스크립트가 스케줄링으로 돌아가도록 설정하면 된다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">먼저 workflow를 작성해주었다</p>
+<p data-ke-size="size16">먼저 workflow를 작성해 주었다</p>
 <pre id="code_1752599928241" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>name: RSS Parser
 
 on:
@@ -317,7 +318,7 @@ jobs:
             echo "No changes to commit"
           fi</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">특이점은 env를 잡을수 있다는 것이었다.</p>
+<p data-ke-size="size16">특이점은 env를 잡을 수 있다는 것이었다.</p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16"><a href="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" target="_blank" rel="noopener&nbsp;noreferrer">https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables</a></p>
 <figure id="og_1752599966908" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="article" data-og-title="변수에 정보 저장 - GitHub Docs" data-og-description="GitHub은(는) 각 GitHub Actions 워크플로 실행에 대한 기본 변수를 설정합니다. 단일 워크플로 또는 여러 워크플로에서 사용할 사용자 지정 변수를 설정할 수도 있습니다." data-og-host="docs.github.com" data-og-source-url="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" data-og-url="https://docs-internal.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" data-og-image="https://scrap.kakaocdn.net/dn/c0P506/hyZjhBMBkD/B2fyr6HvKDyW5d6fjPatJk/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/pQogv/hyZnbGJTUF/DG1x5SUOYnLpFm28k4rxy1/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/zpStX/hyZm8J1qb3/kGAfVjrWi73KYgB4rmqSMk/img.png?width=2196&amp;height=216&amp;face=0_0_2196_216"><a href="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" target="_blank" rel="noopener" data-source-url="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables">
@@ -329,7 +330,7 @@ jobs:
 </div>
 </a></figure>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">공식문서를 참고하여 env를 잡은후 저런식으로 설정해줬다. (secret값은 vars. 대신 secrets 사용하면 됨!)</p>
+<p data-ke-size="size16">공식문서를 참고하여 env를 잡은 후 저런 식으로 설정해 줬다. (secret값은 vars. 대신 secrets. 사용하면 됨!)</p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">나머지 흐름부는</p>
 <p data-ke-size="size16"><a href="https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7" target="_blank" rel="noopener&nbsp;noreferrer">https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7&nbsp;</a></p>
@@ -347,10 +348,10 @@ jobs:
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">Permission Error (in. GitHub Action)</h3>
 <p data-ke-size="size16">권한 에러(403) 이 발생하였다.</p>
-<p data-ke-size="size16">알고보니 cludflare를 사용하는 사이트 들은 github action을 통한 접근이 봇으로 인식하여 차단한다는 거 아닌가!!ㅠ</p>
-<p data-ke-size="size16">해결법을 찾아야했다</p>
+<p data-ke-size="size16">알고 보니 cloudflare를 사용하는 사이트는&nbsp;<span style="color: #333333; text-align: start;"><span>&nbsp;</span>GitHub Action</span>을 통한 접근이 봇으로 인식하여 차단한다는 거 아닌가!!ㅠ</p>
+<p data-ke-size="size16">해결법을 찾아야 했다</p>
 <h4 data-ke-size="size20">1. 헤더 USER-AGENT 주기</h4>
-<p data-ke-size="size16">gpt형이 알려준대로 헤더에 user-agent를 줘봤다.</p>
+<p data-ke-size="size16">gpt가 알려준 대로 헤더에 user-agent를 줘봤다.</p>
 <pre id="code_1752600350266" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>const parser = new RSSParser({
   requestOptions: {
     headers: {
@@ -358,11 +359,11 @@ jobs:
     }
   }
 });</code></pre>
-<p data-ke-size="size16">그러나 실패...아예 아이피 접근이 막힌듯...</p>
+<p data-ke-size="size16">그러나 실패... 아예 <span style="color: #333333; text-align: start;">GitHub Action의&nbsp;</span>아이피 접근이 막혀있는 듯하다...</p>
 <p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">2. 크롤링(puppeteer)를 사용하여 데이터 받아와서 변환</h4>
-<p data-ke-size="size16">내키지는 않지만 시도해보기로 하였다.</p>
-<p data-ke-size="size16">우여곡절끝에 데이터도 파싱파싱...시키면서 테스트 했는데 우려했던대로 크롤링도 Github Action에서 막히는것같았다.&nbsp;</p>
+<h4 data-ke-size="size20">2. 크롤링(puppeteer)을 사용하여 데이터 받아와서 변환</h4>
+<p data-ke-size="size16">내키지는 않지만 시도해 보기로 하였다.</p>
+<p data-ke-size="size16">우여곡절 끝에 데이터를 올바르게 정제하여 테스트했는데 우려했던 대로 크롤링도 Github Action에서 막히는 것 같았다.&nbsp;</p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">해당코드는 그 잔재...</p>
 <pre id="code_1752600576473" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
@@ -420,20 +421,20 @@ async function fetchRssWithPuppeteer(url: string): Promise&lt;string | null&gt; 
             }
  ...</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">3. 프록시 서버로 우회</h4>
+<h4 data-ke-size="size20">3.&nbsp; 프록시 서버로 우회</h4>
 <p data-ke-size="size16">cloudflare가 봇으로 인식하지 않도록 프록시 서버로 우회하는 방안도 있었다.</p>
-<p data-ke-size="size16">다만 서버 만드는데 공수가 많이 들어(귀찮...) 고민하던중 프록시 중계 사이트가 있는것 아닌가...!</p>
+<p data-ke-size="size16">다만 서버 만드는데 공수가 많이 들어(귀찮...) 고민하던 중 프락시 중계 사이트를 찾았다!</p>
 <p data-ke-size="size16"><a href="https://rssproxy.migor.org/" target="_blank" rel="noopener&nbsp;noreferrer">https://rssproxy.migor.org/</a></p>
 <p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 023241.png" data-origin-width="1396" data-origin-height="830"><span data-url="https://blog.kakaocdn.net/dn/b7rUkr/btsPiZZzkNV/6KstdDoKBMyaW6koxWuKkK/img.png" data-phocus="https://blog.kakaocdn.net/dn/b7rUkr/btsPiZZzkNV/6KstdDoKBMyaW6koxWuKkK/img.png" data-alt="고마운 사이트"><img src="https://blog.kakaocdn.net/dn/b7rUkr/btsPiZZzkNV/6KstdDoKBMyaW6koxWuKkK/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7rUkr%2FbtsPiZZzkNV%2F6KstdDoKBMyaW6koxWuKkK%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1396" height="830" data-filename="스크린샷 2025-07-16 023241.png" data-origin-width="1396" data-origin-height="830"/></span><figcaption>고마운 사이트</figcaption>
 </figure>
 </p>
-<p data-ke-size="size16">해당 사이트를 통해 프록시 우회 경로를 잡았고 로컬에서 테스트한 결과...성공!!</p>
+<p data-ke-size="size16">해당 사이트를 통해 프록시 우회 경로를 잡았고 로컬에서 테스트한 결과... 성공!!</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">문제인 GitHub Action에서만 성공하면 되는데</p>
-<p><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 023432.png" data-origin-width="1239" data-origin-height="299"><span data-url="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" data-phocus="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" data-alt="성공!"><img src="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbldI4r%2FbtsPkpJtwJ7%2FKNQu3S15KSERPQanUUMM21%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1239" height="299" data-filename="스크린샷 2025-07-16 023432.png" data-origin-width="1239" data-origin-height="299"/></span><figcaption>성공!</figcaption>
+<p data-ke-size="size16">GitHub Action에서만 성공하면 되는데</p>
+<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 023432.png" data-origin-width="1239" data-origin-height="299"><span data-url="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" data-phocus="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" data-alt="성공!"><img src="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbldI4r%2FbtsPkpJtwJ7%2FKNQu3S15KSERPQanUUMM21%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1239" height="299" data-filename="스크린샷 2025-07-16 023432.png" data-origin-width="1239" data-origin-height="299"/></span><figcaption>성공!</figcaption>
 </figure>
 </p>
-<p data-ke-size="size16">아무 오류없이 성공했다! 데이터도 잘들어가는거보니 문제가 발생하지는 않는것같다.</p>
+<p data-ke-size="size16">오류 없이 성공했다! 데이터도 잘 들어가는 거 보니 문제가 발생하지 않는 것 같다.</p>
 <h4 style="color: #000000; text-align: start;" data-ke-size="size20">최종 스크립트</h4>
 <pre id="code_1752600976327" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>import { writeFileSync, readFileSync } from 'node:fs';
 import RSSParser from "rss-parser";
@@ -498,16 +499,16 @@ const parser = new RSSParser();
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">해당 방식을 토대로 최종 스크립트는 이렇게 되었다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">추가로 해당 사이트로 우회시 디코드된 콘텐츠가 그대로 남아있어서 entities의 decode기능을 사용하여 디코딩 과정을 거쳤다.</p>
+<p data-ke-size="size16">추가로 해당 사이트로 우회 시 인코딩 된 콘텐츠가 그대로 남아있어서 entities의 decode기능을 사용하여 디코딩 과정을 거쳤다.</p>
 <pre id="code_1752601111776" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>yarn add entities</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">이중으로 되어 있는 경우도 잦아 디코드를 두번돌렸다.</p>
+<p data-ke-size="size16">이중으로 되어 있는 경우도 잦아 디코드를 두 번 사용하여 확실히 디코딩해 줬다.</p>
 <pre id="code_1752601141534" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
 content: content ? decode(decode(content)) : "",
 ...</code></pre>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">데이터 표출하기</h3>
-<p data-ke-size="size16">데이터는 store에 담을까도 싶었는데 어차피 변동이 일어나지 않을거니 최초 받아온 데이터를 context에 저장하여 사용하는 방식을 채택했다.</p>
+<p data-ke-size="size16">데이터는 store에 담을까도 싶었는데 크게 변동이 일어나지 않을 거니 최초 받아온 데이터를 context에 저장하여 사용하는 방식을 채택했다.</p>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size18"><b>context 설정</b></p>
 <pre id="code_1752601326144" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\lib\data\use-data-context.tsx
@@ -522,8 +523,8 @@ export const useDataContext = () =&gt; {
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size18"><b>provider 설정</b></p>
 <p data-ke-size="size16">fetch로 프로젝트 public 폴더에 존재하는 data.json에 접근하여 데이터를 불러왔다.</p>
-<p data-ke-size="size16">로딩은 따로 useState를 사용하기 보다 useTransition을 사용 (react19부터 비동기 지원, 추후 포스트로 남기겠다)</p>
-<p data-ke-size="size16">data를 context에 담아 povider내에 전역에서 관리할수 있게 하였다.</p>
+<p data-ke-size="size16">로딩은 따로 useState를 사용하기보다 useTransition을 사용 (react19부터 비동기 지원, 추후 포스트로 다뤄보겠다)</p>
+<p data-ke-size="size16">data를 context에 담아 povider내에 전역에서 관리할 수 있게 하였다.</p>
 <pre id="code_1752601389410" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\ui\data\data-provider.tsx
 import { useEffect, useState, useTransition, type PropsWithChildren } from "react"
 import { DataContext } from "../../lib/data";
@@ -558,13 +559,13 @@ export const DataProvider = ({ children }: PropsWithChildren) =&gt; {
 }</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">providers 파일 추가후 후에 여러 providers가 생성되는 상황을 고려하였다.</p>
-<p data-ke-size="size16">app에 Providers import</p>
+<p data-ke-size="size16">providers 파일 추가 후 후에 여러 provider가 생성되는 상황을 고려하였다.</p>
+<p data-ke-size="size16">app.tsx에 Providers import 하여 전역으로 사용</p>
 <p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 024644.png" data-origin-width="1814" data-origin-height="483"><span data-url="https://blog.kakaocdn.net/dn/BTP0w/btsPkuYi7ZG/RKk8BmQK1INFuCIrQXqPpK/img.png" data-phocus="https://blog.kakaocdn.net/dn/BTP0w/btsPkuYi7ZG/RKk8BmQK1INFuCIrQXqPpK/img.png"><img src="https://blog.kakaocdn.net/dn/BTP0w/btsPkuYi7ZG/RKk8BmQK1INFuCIrQXqPpK/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBTP0w%2FbtsPkuYi7ZG%2FRKk8BmQK1INFuCIrQXqPpK%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1814" height="483" data-filename="스크린샷 2025-07-16 024644.png" data-origin-width="1814" data-origin-height="483"/></span></figure>
 </p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
 <h3 data-ke-size="size23">결과</h3>
-<p data-ke-size="size16">main-page에서 간단히 데이터를 불러와 보았다. copilot한테 ui는 임시로 만들어 달라고 부탁</p>
+<p data-ke-size="size16">main-page에서 간단히 데이터를 불러와 보았다. <br /><span style="color: #333333; text-align: start;">ui는<span>&nbsp;</span></span>copilot한테 임시로 만들어 달라고 부탁하였다.</p>
 <p data-ke-size="size16">dangerouslySetInnerHTML에 content 삽입</p>
 <pre id="code_1752601807807" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\pages\main\ui\main.tsx
 import { useDataContext } from "../../../shared/lib/data";
@@ -597,11 +598,11 @@ const MainPage = () =&gt; {
 
 export default MainPage;</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">최종 화면은 이런식으로 잘나왔다!</p>
+<p data-ke-size="size16">최종 화면은 이런 식으로 나왔다!</p>
 <p><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 025317.png" data-origin-width="739" data-origin-height="1409"><span data-url="https://blog.kakaocdn.net/dn/bqUqA1/btsPkmTwOUe/WG0T1sPd229PtaKlZEYxf0/img.png" data-phocus="https://blog.kakaocdn.net/dn/bqUqA1/btsPkmTwOUe/WG0T1sPd229PtaKlZEYxf0/img.png"><img src="https://blog.kakaocdn.net/dn/bqUqA1/btsPkmTwOUe/WG0T1sPd229PtaKlZEYxf0/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbqUqA1%2FbtsPkmTwOUe%2FWG0T1sPd229PtaKlZEYxf0%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="739" height="1409" data-filename="스크린샷 2025-07-16 025317.png" data-origin-width="739" data-origin-height="1409"/></span></figure>
 </p>
 <p data-ke-size="size16">#4부터는 퍼블리싱 작업에 들어가겠다</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p style="background-color: #ffffff; color: #353638; text-align: left;" data-ke-size="size16"><span style="background-color: #ffffff; color: #353638; text-align: left;">브랜치 #3</span></p>
-<p style="background-color: #ffffff; color: #353638; text-align: left;" data-ke-size="size16"><a href="https://github.com/inho1019/front-end-magazine/tree/%233" target="_blank" rel="noopener&nbsp;noreferrer">https://github.com/inho1019/front-end-magazine/tree/%233</a></p>
+<p data-ke-size="size16">브랜치 #3</p>
+<p data-ke-size="size16"><a href="https://github.com/inho1019/front-end-magazine/tree/%233" target="_blank" rel="noopener&nbsp;noreferrer">https://github.com/inho1019/front-end-magazine/tree/%233</a></p>
 </details>
