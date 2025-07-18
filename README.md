@@ -38,6 +38,8 @@
   <ul>
 
 <li>
+    <a href="https://inho-m.tistory.com/10">FE magazine 개발기 #4 - Alias 설정, 웹 1차, 구글 번역 적용</a>
+</li><li>
     <a href="https://inho-m.tistory.com/9">FE magazine 개발기 #3 - RSS Parser 수난기 (with.GitHub Action)</a>
 </li><li>
     <a href="https://inho-m.tistory.com/7">FE magazine 개발기 #2 - 목표 구체화, 기본 설정</a>
@@ -45,8 +47,6 @@
     <a href="https://inho-m.tistory.com/6">FE magazine 개발기 #1 - 시작, GitHub API(Octokit)</a>
 </li><li>
     <a href="https://inho-m.tistory.com/4">FSD 구조에 대한 고찰</a>
-</li><li>
-    <a href="https://inho-m.tistory.com/3">티스토리 깃허브 연동하기</a>
 </li>
   </ul>
   <a href="https://inho-m.tistory.com">전체글보기</a>
@@ -55,554 +55,354 @@
 ### Recent Post
 
 <details>
-<summary>FE magazine 개발기 #3 - RSS Parser 수난기 (with.GitHub Action)</summary>
+<summary>FE magazine 개발기 #4 - Alias 설정, 웹 1차, 구글 번역 적용</summary>
 <br/>
-<p data-ke-size="size16">본격적으로 데이터를 불러오기 위해 rss 파싱 로직을 짜보았다.</p>
-<p data-ke-size="size16">그러나 진행 중 문제가 발생한 게 rss 파싱이 예상과는 달리 클라이언트 사이드에서는 접근이 허용되지 않았다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">처음에는 가능하다고 생각하여 rss-parser를 사용하여 사이트 최초입장 시&nbsp;<br /><b>사이트 목록 get -&gt; 사이트 목록을 순회하면 각사이트의 rss parsing -&gt; 데이터를 타입에 맞게 활용 가능하도록 정제</b><br />의 과정을 거치게 하려고 하였다. 작업은 순조로웠으나 rss parse 부분에서 에러가 발생, 클라이언트 사이드 환경에서는 rss parser를 가져오는데 제약이 있다는 것을 알게 되었다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">서버까지 구현하기에는 소요가 많이 든다고 판단, GitHub Action을 사용하여 주기적으로 등록된 사이트 순회하면서 파싱하고 그것을 파일로 저장해 두어 그 파일을 fetch 하는 형태로 구현하기로 하였다.</p>
+<p data-ke-size="size16">시간을 쪼개서 조금 빠르게 작업을 진행하였다.</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">RSS Parse 스크립트 만들기</h3>
-<h4 data-ke-size="size20">필요 세팅</h4>
-<pre id="code_1752597673524" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>#파싱을 위한 rss-parser
-yarn add rss-parser
-#스크립트 파일에서 env 파일을 활요하기 위한 dotenv
-yarn add dotenv
-#DATETIME 편리하게 활용하기 위한 luxon설치
-yarn add luxon
-#ts 파일 스크립트 돌릴수 있게 하기위해 tsx 설치
-yarn add tsx</code></pre>
+<h3 data-ke-size="size23">Alias 설정</h3>
+<p data-ke-size="size16">본격적으로 웹 퍼블리싱에 들어가기에 앞서 import 할 때 보기 편하게 하기 위해 alias를 설정해 주었다.</p>
+<p data-ke-size="size16">먼저 vite-tsconfig-paths를 설치한다</p>
+<pre id="code_1752768971821" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>yarn add vite-tsconfig-paths</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">기존 파일에서 변경점&nbsp;</p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>데이터 json 관리를 public 폴더에서 활용하도록 변경</li>
-<li>기존 사이트 저장하는 data.json =&gt; site.json으로 변경(혼동 방지)</li>
-<li>새로 데이터를 저장하는 파일을 data.json으로 명명</li>
-<li>scripts폴더 투르에 생성, script 파일들 저장</li>
-</ul>
-<p><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 014829.png" data-origin-width="542" data-origin-height="224"><span data-url="https://blog.kakaocdn.net/dn/0hyvg/btsPj3NrjBw/UlKD8RPkK8AWQlZqtjtbm0/img.png" data-phocus="https://blog.kakaocdn.net/dn/0hyvg/btsPj3NrjBw/UlKD8RPkK8AWQlZqtjtbm0/img.png" data-alt="대략 이런 구조로 변경"><img src="https://blog.kakaocdn.net/dn/0hyvg/btsPj3NrjBw/UlKD8RPkK8AWQlZqtjtbm0/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F0hyvg%2FbtsPj3NrjBw%2FUlKD8RPkK8AWQlZqtjtbm0%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="542" height="224" data-filename="스크린샷 2025-07-16 014829.png" data-origin-width="542" data-origin-height="224"/></span><figcaption>대략 이런 구조로 변경</figcaption>
+<p data-ke-size="size16">어려운 건 없고 tsconfig.json paths 설정을 vite가 인식할 수 있도록 하는 모듈이다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">vite.config.ts에 모듈을 추가해 준다.</p>
+<pre id="code_1752769132041" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// vite.config.ts
+export default defineConfig({
+  plugins: [
+    ...
+    tsconfigPaths(),
+    ...
+  ],
+})</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">그리고 ts.config.app.json 에 alias를 설정하면 끝난다.</p>
+<p data-ke-size="size16">나의 경우에는 FSD구조에 맞추어 alias를 설정하였다.</p>
+<pre id="code_1752769237205" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// tsconfig.app.json
+{
+  "compilerOptions": {
+    ...
+    /* Aliases */
+    "paths": {
+      "@app/*": ["./src/app/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@features/*": ["./src/features/*"],
+      "@shared/*": ["./src/shared/*"],
+
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"]
+}</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">이후 프로젝트 전반적으로 리팩토링 작업을 거치어 파일들을 alias에 맞추어 import 하였다.</p>
+<p><figure class="imageblock alignLeft" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-18 012138.png" data-origin-width="625" data-origin-height="103"><span data-url="https://blog.kakaocdn.net/dn/csuWgm/btsPnHQSSUj/qq0gj0J8zgXMw6Yc4ewSg0/img.png" data-phocus="https://blog.kakaocdn.net/dn/csuWgm/btsPnHQSSUj/qq0gj0J8zgXMw6Yc4ewSg0/img.png" data-alt="이런식으로 보기 편하게 들어간다"><img src="https://blog.kakaocdn.net/dn/csuWgm/btsPnHQSSUj/qq0gj0J8zgXMw6Yc4ewSg0/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcsuWgm%2FbtsPnHQSSUj%2Fqq0gj0J8zgXMw6Yc4ewSg0%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="552" height="91" data-filename="스크린샷 2025-07-18 012138.png" data-origin-width="625" data-origin-height="103"/></span><figcaption>이런식으로 보기 편하게 들어간다</figcaption>
 </figure>
 </p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>Site 타입 변경 및 ParserData 타입선언</li>
-</ul>
-<pre id="code_1752598480600" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src/shared/model/site/site.ts
-export type Site = {
-  id: string;
-  url: string;
-  name: string;
-  description?: string;
-  type: {
-    title: string;
-    content: string;
-    createdAt: string;
-    link?: string;
-    author?: string;
-    thumbnail?: string;
-  };
-};
-
-// src/shared/model/parser/parser-data.ts
-import type { DateTime } from "luxon";
-
-export type ParserData = {
-    title: string;
-    content: string;
-    createdAt: DateTime;
-    link?: string;
-    author?: string;
-    thumbnail?: string;
-    site: {
-        id: string;
-        url: string;
-        name: string;
-    }
-}</code></pre>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>기타 파일 경로들 정리</li>
-</ul>
-<h4 data-ke-size="size20">스크립트 작성(초기 버전)</h4>
-<pre id="code_1752598228923" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// scrips/action.ts
-import { writeFileSync, readFileSync } from 'node:fs';
-import RSSParser from "rss-parser";
-import dotenv from 'dotenv';
-import type { Site } from "../src/shared/model/site"
-import type { ParserData } from "../src/shared/model/parser";
-import { DateTime } from 'luxon';
-dotenv.config();
-
-const parser = new RSSParser();
-
-(async () =&gt; {
-    try {
-        const targetSite = process.env.VITE_TARGET_PATH_SITE ?? 'public/site.json';
-        const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];
-        const parsing = await Promise.all(sites.map(async (site: Site) =&gt; {
-            const feed = await parser.parseURL(site.url);
-            const items = feed.items || [];
-            const parsedData: ParserData[] = items.map(item =&gt; {
-                const createdRaw = item[site.type.createdAt];
-                let createdAt: DateTime = DateTime.invalid("Invalid date");
-                if (createdRaw) {
-                    createdAt = DateTime.fromISO(createdRaw);
-                    if (!createdAt.isValid) {
-                        createdAt = DateTime.fromHTTP(createdRaw);
-                    }
-                    if (!createdAt.isValid) {
-                        createdAt = DateTime.fromRFC2822(createdRaw);
-                    }
-                }
-                return {
-                    title: item[site.type.title] ?? "",
-                    content: item[site.type.content] ?? "",
-                    createdAt,
-                    link: site.type.link &amp;&amp; (item[site.type.link] ?? ""),
-                    owner: site.type.owner &amp;&amp; (item[site.type.owner] ?? ""),
-                    thumbnail: site.type.thumbnail &amp;&amp; (item[site.type.thumbnail] ?? ""),
-                    site: {
-                        id: site.id,
-                        url: site.url,
-                        name: site.name,
-                    },
-                }
-            })
-            return parsedData;
-        }));
-        const data: ParserData[] = parsing.flat();
-        data.sort((a, b) =&gt; {
-            return b.createdAt.toMillis() - a.createdAt.toMillis();
-        });
-
-        const targetData = process.env.VITE_TARGET_PATH_DATA ?? 'public/data.json';
-
-        writeFileSync(targetData, JSON.stringify(data, null, 2), 'utf8');
-    } catch (error) {
-        console.error("process error:", error);
-    }
-})();</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">흐름대로 설명 하겠다</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>0.</b></p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>env는 이런 식으로 사용하면 됨</li>
-</ul>
-<pre id="code_1752599790269" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>import dotenv from 'dotenv';
-dotenv.config();
-
-process.env...</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>1.</b></p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>site.json에서 사이트 정보들을 가져온 후 json으로 parse 한 이후 강제로 Site타입으로 선언</li>
-</ul>
-<pre id="code_1752598333703" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>const targetSite = process.env.VITE_TARGET_PATH_SITE ?? 'public/site.json';
-const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>2.</b></p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>가져온 sites 데이터를 순회하며 rss-parser를 통해 해당경로로 접속하여 feed를 가져옴&nbsp;</li>
-</ul>
-<pre id="code_1752598657735" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>  const parsing = await Promise.all(sites.map(async (site: Site) =&gt; {
-            const feed = await parser.parseURL(site.url);
-            const items = feed.items || [];
-  ...</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>3.</b></p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>다시 가져온 feed데이터를 순회하며 각사이트의 설정된 타입에 맞게 데이터를 정제(serialize)해서 return 해준다.</li>
-<li>여기서 createdAt 형태가 사이트마다 다양할 경우를 고려해서 valid 된 형태를 찾을 때까지 다양한 형태시도</li>
-<li>최종 데이터는 "const parsing"으로 return 이경우 사이트 각각의 parserData[]들이 또 배열로 들어가기에 이중배열이 된다. (parserData[][])</li>
-</ul>
-<pre id="code_1752598791942" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
-            const parsedData: ParserData[] = items.map(item =&gt; {
-            const createdRaw = item[site.type.createdAt];
-            let createdAt: DateTime = DateTime.invalid("Invalid date");
-            if (createdRaw) {
-                createdAt = DateTime.fromISO(createdRaw);
-                if (!createdAt.isValid) {
-                    createdAt = DateTime.fromHTTP(createdRaw);
-                }
-                if (!createdAt.isValid) {
-                    createdAt = DateTime.fromRFC2822(createdRaw);
-                }
-            }
-            return {
-                title: item[site.type.title] ?? "",
-                content: item[site.type.content] ?? "",
-                createdAt,
-                link: site.type.link &amp;&amp; (item[site.type.link] ?? ""),
-                owner: site.type.owner &amp;&amp; (item[site.type.owner] ?? ""),
-                thumbnail: site.type.thumbnail &amp;&amp; (item[site.type.thumbnail] ?? ""),
-                site: {
-                    id: site.id,
-                    url: site.url,
-                    name: site.name,
-                },
-            }
-        })
-        return parsedData;
-    }));</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>4.</b></p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>parserData[][] 이중배열 형태이기에 flat 사용하여 하나의 배열 형태로 합친다</li>
-<li>createdAt 기준으로 재정렬</li>
-</ul>
-<pre id="code_1752599123065" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>	const data: ParserData[] = parsing.flat();
-        data.sort((a, b) =&gt; {
-            return b.createdAt.toMillis() - a.createdAt.toMillis();
-        });</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>5.</b></p>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li>data.json으로 최종 데이터 파일 저장</li>
-</ul>
-<pre id="code_1752599279234" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>        const targetData = process.env.VITE_TARGET_PATH_DATA ?? 'public/data.json';
-
-        writeFileSync(targetData, JSON.stringify(data, null, 2), 'utf8');</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">테스트&nbsp;</h4>
-<p data-ke-size="size16">환경에 따라 다르긴 하나 단순히 node scripts/action.ts 사용 시 오류가 발생할 수도 있어 tsx를 활용</p>
-<pre id="code_1752599523188" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code># 세팅에서 설치한 tsx 활용
-npx tsx scripts/action.ts</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">다행히 데이터가 잘 받아오는 것을 알 수가 있었다. (꼭 로컬에서 테스트해보고 push 하자)</p>
-<p data-ke-size="size16">&nbsp;</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">GitHub Action 스케줄링</h3>
-<p data-ke-size="size16">이제 GitHub Action으로 주기적으로 데이터가 들어오게 스크립트가 스케줄링으로 돌아가도록 설정하면 된다.</p>
+<h3 data-ke-size="size23">웹 1차</h3>
+<h4 data-ke-size="size20">아이템, 리스트 퍼블리싱</h4>
+<p data-ke-size="size16">퍼블리싱 부분은 크게 설명할 것이 없어 간단히 코드만 띄우고 특이점만 설명하겠다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">먼저 workflow를 작성해 주었다</p>
-<pre id="code_1752599928241" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>name: RSS Parser
+<p data-ke-size="size18"><b>아이템</b></p>
+<p data-ke-size="size16">만들어둔 useTrans를 유틸을 활용하여 국제화 적용 테스트를 해보았다.</p>
+<p data-ke-size="size16">div props를 기반으로 두어 컴포넌트로서 유동적으로 활용할 수 있게 하였다.</p>
+<pre id="code_1752769481565" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\features\magazine\ui\magazine-item.tsx
+import type { ParserData } from "@shared/model/parser";
+import { useTrans } from "@shared/lib/utils";
+import { DateTime } from "luxon";
 
-on:
-# 푸시 이벤트가 발생할 때마다 아래 스크립트를 실행한다.
-  push:
-# 3시간에 한번씩 아래 스크립트를 실행한다.
-  schedule:
-    - cron: "0 */3 * * *"
-# 권한부여
-permissions:
-  contents: write
-  
-env:
-  VITE_TARGET_PATH_SITE: ${{ vars.SITE_FILE_PATH }}
-  VITE_TARGET_PATH_DATA: ${{ vars.DATA_FILE_PATH }}
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - name: Enable Corepack
-        run: corepack enable
-      - name: Install dependencies
-        run: yarn install
-      - name: Run RSS Parser
-        run: node scripts/action.ts
-      - name: Commit Data
-        run: |
-          git config --local user.email "본인 깃허브 이메일"
-          git config --local user.name "본인 깃허브 이름"
-          git add .
-          if ! git diff --cached --quiet; then
-            git commit -m "Update data.json"
-            git push
-          else
-            echo "No changes to commit"
-          fi</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">특이점은 env를 잡을 수 있다는 것이었다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16"><a href="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" target="_blank" rel="noopener&nbsp;noreferrer">https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables</a></p>
-<figure id="og_1752599966908" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="article" data-og-title="변수에 정보 저장 - GitHub Docs" data-og-description="GitHub은(는) 각 GitHub Actions 워크플로 실행에 대한 기본 변수를 설정합니다. 단일 워크플로 또는 여러 워크플로에서 사용할 사용자 지정 변수를 설정할 수도 있습니다." data-og-host="docs.github.com" data-og-source-url="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" data-og-url="https://docs-internal.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" data-og-image="https://scrap.kakaocdn.net/dn/c0P506/hyZjhBMBkD/B2fyr6HvKDyW5d6fjPatJk/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/pQogv/hyZnbGJTUF/DG1x5SUOYnLpFm28k4rxy1/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/zpStX/hyZm8J1qb3/kGAfVjrWi73KYgB4rmqSMk/img.png?width=2196&amp;height=216&amp;face=0_0_2196_216"><a href="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables" target="_blank" rel="noopener" data-source-url="https://docs.github.com/ko/actions/how-tos/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables">
-<div class="og-image" style="background-image: url('https://scrap.kakaocdn.net/dn/c0P506/hyZjhBMBkD/B2fyr6HvKDyW5d6fjPatJk/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/pQogv/hyZnbGJTUF/DG1x5SUOYnLpFm28k4rxy1/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/zpStX/hyZm8J1qb3/kGAfVjrWi73KYgB4rmqSMk/img.png?width=2196&amp;height=216&amp;face=0_0_2196_216');">&nbsp;</div>
-<div class="og-text">
-<p class="og-title" data-ke-size="size16">변수에 정보 저장 - GitHub Docs</p>
-<p class="og-desc" data-ke-size="size16">GitHub은(는) 각 GitHub Actions 워크플로 실행에 대한 기본 변수를 설정합니다. 단일 워크플로 또는 여러 워크플로에서 사용할 사용자 지정 변수를 설정할 수도 있습니다.</p>
-<p class="og-host" data-ke-size="size16">docs.github.com</p>
-</div>
-</a></figure>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">공식문서를 참고하여 env를 잡은 후 저런 식으로 설정해 줬다. (secret값은 vars. 대신 secrets. 사용하면 됨!)</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">나머지 흐름부는</p>
-<p data-ke-size="size16"><a href="https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7" target="_blank" rel="noopener&nbsp;noreferrer">https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7&nbsp;</a></p>
-<figure id="og_1752600092354" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="article" data-og-title="티스토리 깃허브 연동하기" data-og-description="블로그의 개발 부분 포스팅을 깃허브 README에 자동으로 업로드 하기 위해 티스토리 RSS + 깃허브 액션을 활용하여 자동화 작업을 하기로 했다이해티스토리 rss를 활성하하면 해당 링크 접속시 rss" data-og-host="inho-m.tistory.com" data-og-source-url="https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7" data-og-url="https://inho-m.tistory.com/3" data-og-image="https://scrap.kakaocdn.net/dn/S5Uy3/hyZnaA30kd/gB26N1zFwK9EztFtSuXzr1/img.png?width=800&amp;height=307&amp;face=0_0_800_307,https://scrap.kakaocdn.net/dn/bBHHsA/hyZjAakHRK/rcEaswol3e9TK6BKHjIHKK/img.png?width=800&amp;height=307&amp;face=0_0_800_307,https://scrap.kakaocdn.net/dn/uWyny/hyZm9B9e6R/H7KMNbhlVYrMsFU0Y3n5j1/img.png?width=2418&amp;height=930&amp;face=0_0_2418_930"><a href="https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7" target="_blank" rel="noopener" data-source-url="https://inho-m.tistory.com/3#%EC%9E%90%EB%8F%99%ED%99%94-1-7">
-<div class="og-image" style="background-image: url('https://scrap.kakaocdn.net/dn/S5Uy3/hyZnaA30kd/gB26N1zFwK9EztFtSuXzr1/img.png?width=800&amp;height=307&amp;face=0_0_800_307,https://scrap.kakaocdn.net/dn/bBHHsA/hyZjAakHRK/rcEaswol3e9TK6BKHjIHKK/img.png?width=800&amp;height=307&amp;face=0_0_800_307,https://scrap.kakaocdn.net/dn/uWyny/hyZm9B9e6R/H7KMNbhlVYrMsFU0Y3n5j1/img.png?width=2418&amp;height=930&amp;face=0_0_2418_930');">&nbsp;</div>
-<div class="og-text">
-<p class="og-title" data-ke-size="size16">티스토리 깃허브 연동하기</p>
-<p class="og-desc" data-ke-size="size16">블로그의 개발 부분 포스팅을 깃허브 README에 자동으로 업로드 하기 위해 티스토리 RSS + 깃허브 액션을 활용하여 자동화 작업을 하기로 했다이해티스토리 rss를 활성하하면 해당 링크 접속시 rss</p>
-<p class="og-host" data-ke-size="size16">inho-m.tistory.com</p>
-</div>
-</a></figure>
-<p data-ke-size="size16">다른 포스트에 자세히 올려두었다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">이제 push를 해보자. 그러나...</p>
-<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">Permission Error (in. GitHub Action)</h3>
-<p data-ke-size="size16">권한 에러(403) 이 발생하였다.</p>
-<p data-ke-size="size16">알고 보니 cloudflare를 사용하는 사이트는&nbsp;<span style="color: #333333; text-align: start;"><span>&nbsp;</span>GitHub Action</span>을 통한 접근이 봇으로 인식하여 차단한다는 거 아닌가!!ㅠ</p>
-<p data-ke-size="size16">해결법을 찾아야 했다</p>
-<h4 data-ke-size="size20">1. 헤더 USER-AGENT 주기</h4>
-<p data-ke-size="size16">gpt가 알려준 대로 헤더에 user-agent를 줘봤다.</p>
-<pre id="code_1752600350266" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>const parser = new RSSParser({
-  requestOptions: {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-    }
-  }
-});</code></pre>
-<p data-ke-size="size16">그러나 실패... 아예 <span style="color: #333333; text-align: start;">GitHub Action의&nbsp;</span>아이피 접근이 막혀있는 듯하다...</p>
-<p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">2. 크롤링(puppeteer)을 사용하여 데이터 받아와서 변환</h4>
-<p data-ke-size="size16">내키지는 않지만 시도해 보기로 하였다.</p>
-<p data-ke-size="size16">우여곡절 끝에 데이터를 올바르게 정제하여 테스트했는데 우려했던 대로 크롤링도 Github Action에서 막히는 것 같았다.&nbsp;</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">해당코드는 그 잔재...</p>
-<pre id="code_1752600576473" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
-async function fetchRssWithPuppeteer(url: string): Promise&lt;string | null&gt; {
-  const browser = await puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
-
-  try {
-    const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2' });
-
-	const rssContent = await page.evaluate(() =&gt; {
-        const feedElement = document.querySelector('feed');
-        if (feedElement) {
-            return feedElement.outerHTML;
-        }
-        const rssElement = document.querySelector('rss');
-        if (rssElement) {
-            return rssElement.outerHTML;
-        }
-        const txt = document.createElement('textarea');
-        txt.innerHTML = document.documentElement.outerHTML;
-        const domParser = new DOMParser();
-        const doc = domParser.parseFromString(txt.value, "text/html");
-        const feedDecodeElement = doc.querySelector('feed');
-        if (feedDecodeElement) {
-            return feedDecodeElement.outerHTML;
-        }
-        const rssDecodeElement = doc.querySelector('rss');
-        if (rssDecodeElement) {
-            return rssDecodeElement.outerHTML;
-        }
-        return null;
-    });
-
-    console.log(rssContent)
-
-    return rssContent;
-  } finally {
-    await browser.close();
-  }
+interface MagazineItemProps extends React.HTMLAttributes&lt;HTMLDivElement&gt; {
+    data: ParserData;
 }
 
-(async () =&gt; {
-    try {
-        const targetSite = process.env.VITE_TARGET_PATH_SITE ?? 'public/site.json';
-        const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];
-        const parsing = await Promise.all(sites.map(async (site: Site) =&gt; {
-            const rssXml = await fetchRssWithPuppeteer(site.url);
-            if (!rssXml) {
-                console.warn(`Failed to fetch RSS from ${site.url}`);
-                return [];
-            }
- ...</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">3.&nbsp; 프록시 서버로 우회</h4>
-<p data-ke-size="size16">cloudflare가 봇으로 인식하지 않도록 프록시 서버로 우회하는 방안도 있었다.</p>
-<p data-ke-size="size16">다만 서버 만드는데 공수가 많이 들어(귀찮...) 고민하던 중 프락시 중계 사이트를 찾았다!</p>
-<p data-ke-size="size16"><a href="https://rssproxy.migor.org/" target="_blank" rel="noopener&nbsp;noreferrer">https://rssproxy.migor.org/</a></p>
-<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 023241.png" data-origin-width="1396" data-origin-height="830"><span data-url="https://blog.kakaocdn.net/dn/b7rUkr/btsPiZZzkNV/6KstdDoKBMyaW6koxWuKkK/img.png" data-phocus="https://blog.kakaocdn.net/dn/b7rUkr/btsPiZZzkNV/6KstdDoKBMyaW6koxWuKkK/img.png" data-alt="고마운 사이트"><img src="https://blog.kakaocdn.net/dn/b7rUkr/btsPiZZzkNV/6KstdDoKBMyaW6koxWuKkK/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fb7rUkr%2FbtsPiZZzkNV%2F6KstdDoKBMyaW6koxWuKkK%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1396" height="830" data-filename="스크린샷 2025-07-16 023241.png" data-origin-width="1396" data-origin-height="830"/></span><figcaption>고마운 사이트</figcaption>
-</figure>
-</p>
-<p data-ke-size="size16">해당 사이트를 통해 프록시 우회 경로를 잡았고 로컬에서 테스트한 결과... 성공!!</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">GitHub Action에서만 성공하면 되는데</p>
-<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 023432.png" data-origin-width="1239" data-origin-height="299"><span data-url="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" data-phocus="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" data-alt="성공!"><img src="https://blog.kakaocdn.net/dn/bldI4r/btsPkpJtwJ7/KNQu3S15KSERPQanUUMM21/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbldI4r%2FbtsPkpJtwJ7%2FKNQu3S15KSERPQanUUMM21%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1239" height="299" data-filename="스크린샷 2025-07-16 023432.png" data-origin-width="1239" data-origin-height="299"/></span><figcaption>성공!</figcaption>
-</figure>
-</p>
-<p data-ke-size="size16">오류 없이 성공했다! 데이터도 잘 들어가는 거 보니 문제가 발생하지 않는 것 같다.</p>
-<h4 style="color: #000000; text-align: start;" data-ke-size="size20">최종 스크립트</h4>
-<pre id="code_1752600976327" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>import { writeFileSync, readFileSync } from 'node:fs';
-import RSSParser from "rss-parser";
-import { decode } from 'entities';
-import dotenv from 'dotenv';
-import type { Site } from "../src/shared/model/site";
-import type { ParserData } from "../src/shared/model/parser";
-import { DateTime } from 'luxon';
-
-dotenv.config();
-
-const parser = new RSSParser();
-
-(async () =&gt; {
-    try {
-        const targetSite = process.env.VITE_TARGET_PATH_SITE ?? 'public/site.json';
-        const sites = JSON.parse(readFileSync(targetSite, 'utf8')) as Site[];
-        const parsing = await Promise.all(sites.map(async (site: Site) =&gt; {
-            const feed = await parser.parseURL(`${process.env.VITE_RSS_PROXY_URL}${site.url}`);
-            const items = feed.items || [];
-            const parsedData: ParserData[] = items.map(item =&gt; {
-                const createdRaw = item[site.type.createdAt];
-                const content = item[site.type.content];
-                let createdAt: DateTime = DateTime.invalid("Invalid date");
-                if (createdRaw) {
-                    createdAt = DateTime.fromISO(createdRaw);
-                    if (!createdAt.isValid) {
-                        createdAt = DateTime.fromHTTP(createdRaw);
-                    }
-                    if (!createdAt.isValid) {
-                        createdAt = DateTime.fromRFC2822(createdRaw);
-                    }
-                }
-                return {
-                    title: item[site.type.title] ?? "",
-                    content: content ? decode(decode(content)) : "",
-                    createdAt,
-                    link: site.type.link &amp;&amp; (item[site.type.link] ?? ""),
-                    author: site.type.author &amp;&amp; (item[site.type.author] ?? ""),
-                    thumbnail: site.type.thumbnail &amp;&amp; (item[site.type.thumbnail] ?? ""),
-                    site: {
-                        id: site.id,
-                        url: site.url,
-                        name: site.name,
-                    },
-                }
-            })
-            return parsedData;
-        }));
-        const data: ParserData[] = parsing.flat();
-        data.sort((a, b) =&gt; {
-            return b.createdAt.toMillis() - a.createdAt.toMillis();
-        });
-
-        const targetData = process.env.VITE_TARGET_PATH_DATA ?? 'public/data.json';
-
-        writeFileSync(targetData, JSON.stringify(data, null, 2), 'utf8');
-    } catch (error) {
-        console.error("process error:", error);
-    }
-})();</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">해당 방식을 토대로 최종 스크립트는 이렇게 되었다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">추가로 해당 사이트로 우회 시 인코딩 된 콘텐츠가 그대로 남아있어서 entities의 decode기능을 사용하여 디코딩 과정을 거쳤다.</p>
-<pre id="code_1752601111776" class="bash" data-ke-language="bash" data-ke-type="codeblock"><code>yarn add entities</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">이중으로 되어 있는 경우도 잦아 디코드를 두 번 사용하여 확실히 디코딩해 줬다.</p>
-<pre id="code_1752601141534" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
-content: content ? decode(decode(content)) : "",
-...</code></pre>
-<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">데이터 표출하기</h3>
-<p data-ke-size="size16">데이터는 store에 담을까도 싶었는데 크게 변동이 일어나지 않을 거니 최초 받아온 데이터를 context에 저장하여 사용하는 방식을 채택했다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>context 설정</b></p>
-<pre id="code_1752601326144" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\lib\data\use-data-context.tsx
-import { createContext, useContext } from "react";
-import type { ParserData } from "../../model/parser";
-
-export const DataContext = createContext&lt;ParserData[] | null&gt;(null);
-
-export const useDataContext = () =&gt; {
-  return useContext(DataContext);
-};</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>provider 설정</b></p>
-<p data-ke-size="size16">fetch로 프로젝트 public 폴더에 존재하는 data.json에 접근하여 데이터를 불러왔다.</p>
-<p data-ke-size="size16">로딩은 따로 useState를 사용하기보다 useTransition을 사용 (react19부터 비동기 지원, 추후 포스트로 다뤄보겠다)</p>
-<p data-ke-size="size16">data를 context에 담아 povider내에 전역에서 관리할 수 있게 하였다.</p>
-<pre id="code_1752601389410" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\ui\data\data-provider.tsx
-import { useEffect, useState, useTransition, type PropsWithChildren } from "react"
-import { DataContext } from "../../lib/data";
-import type { ParserData } from "../../model/parser";
-
-export const DataProvider = ({ children }: PropsWithChildren) =&gt; {
-    const [data, setData] = useState&lt;ParserData[] | null&gt;(null);
-    const [loading, startTransition] = useTransition();
-
-    useEffect(() =&gt; {
-        const fetchData = async () =&gt; {
-            startTransition(async () =&gt; {
-                try {
-                    const response = await fetch("/data.json");
-                    const jsonData: ParserData[] = await response.json();
-                    setData(jsonData);
-                } catch (error) {
-                    console.error("Error fetching data:", error);
-                    setData(null);
-                }
-            });
-        };
-        fetchData();
-    }, []);
+export const MagazineItem = ({ data, ...props }: MagazineItemProps) =&gt; {
+    const { trans } = useTrans();
 
     return (
-        &lt;DataContext.Provider value={data}&gt;
-            {loading &amp;&amp; &lt;div&gt;Loading...&lt;/div&gt;}
-            {children}    
-        &lt;/DataContext.Provider&gt;
-    )
+        &lt;div {...props}&gt;
+            &lt;p className="text-xs text-gray-500"&gt;{data.site.name}&lt;/p&gt; 
+            &lt;h2 className="text-xl font-bold"&gt;{data.title}&lt;/h2&gt;
+            &lt;p className="text-sm text-gray-700"&gt;{trans("magazine.createdAt", "작성일")} {DateTime.fromISO(data.createdAt).toFormat("yyyy-MM-dd HH:mm")}&lt;/p&gt; 
+            {data.thumbnail &amp;&amp; &lt;img src={data.thumbnail} alt={data.title} className="mt-2 w-32 h-32 object-cover" /&gt;}
+        &lt;/div&gt;
+    );
 }</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">providers 파일 추가 후 후에 여러 provider가 생성되는 상황을 고려하였다.</p>
-<p data-ke-size="size16">app.tsx에 Providers import 하여 전역으로 사용</p>
-<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 024644.png" data-origin-width="1814" data-origin-height="483"><span data-url="https://blog.kakaocdn.net/dn/BTP0w/btsPkuYi7ZG/RKk8BmQK1INFuCIrQXqPpK/img.png" data-phocus="https://blog.kakaocdn.net/dn/BTP0w/btsPkuYi7ZG/RKk8BmQK1INFuCIrQXqPpK/img.png"><img src="https://blog.kakaocdn.net/dn/BTP0w/btsPkuYi7ZG/RKk8BmQK1INFuCIrQXqPpK/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FBTP0w%2FbtsPkuYi7ZG%2FRKk8BmQK1INFuCIrQXqPpK%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1814" height="483" data-filename="스크린샷 2025-07-16 024644.png" data-origin-width="1814" data-origin-height="483"/></span></figure>
-</p>
-<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">결과</h3>
-<p data-ke-size="size16">main-page에서 간단히 데이터를 불러와 보았다. <br /><span style="color: #333333; text-align: start;">ui는<span>&nbsp;</span></span>copilot한테 임시로 만들어 달라고 부탁하였다.</p>
-<p data-ke-size="size16">dangerouslySetInnerHTML에 content 삽입</p>
-<pre id="code_1752601807807" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\pages\main\ui\main.tsx
-import { useDataContext } from "../../../shared/lib/data";
-import { MainContainer } from "../../../shared/ui/layout";
-
-const MainPage = () =&gt; {
-    const data = useDataContext();
-    
-    return (
-        &lt;MainContainer&gt;
-            &lt;div className="flex flex-col gap-20"&gt;
+<pre id="code_1752769599942" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// src\locales\ko\common.json
+{
+    "magazine": {
+        "createdAt": "작성일"
+    }
+}</code></pre>
+<p data-ke-size="size18">&nbsp;</p>
+<p data-ke-size="size18"><b>리스트</b></p>
+<p data-ke-size="size16">항목 별로 경계선을 만들어주는 tailwind 속성의 divide를 활용하였다</p>
+<pre id="code_1752769803859" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\pages\magazine\ui\initial\magazine-list.tsx
+const data = useDataContext();
+...
+            &lt;div className="flex flex-col divide-y-1 divide-gray-200"&gt;
                 {
                     data?.map((item, index) =&gt; (
-                        &lt;div key={index} className="my-4"&gt;
-                            &lt;h2 className="text-xl font-bold"&gt;{item.title}&lt;/h2&gt;
-                            &lt;div 
-                                dangerouslySetInnerHTML={{ __html: item.content }}
-                                className="text-gray-700 whitespace-pre-wrap" 
-                            /&gt;
-                            &lt;p className="text-sm text-gray-500"&gt;Created at: {item.createdAt.toLocaleString()}&lt;/p&gt; 
-                            {item.link &amp;&amp; &lt;a href={item.link} className="text-blue-500 hover:underline"&gt;Read more&lt;/a&gt;}
-                            {item.thumbnail &amp;&amp; &lt;img src={item.thumbnail} alt={item.title} className="mt-2 w-32 h-32 object-cover" /&gt;}
-                        &lt;/div&gt; 
+                        &lt;MagazineItem 
+                            key={index} 
+                            data={item}
+                            className="cursor-pointer py-15 px-10" 
+                        /&gt;
                     ))
                 }
             &lt;/div&gt;
-        &lt;/MainContainer&gt;
-    );
+...</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size18"><b>결과</b></p>
+<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-18 013326.png" data-origin-width="1079" data-origin-height="1104"><span data-url="https://blog.kakaocdn.net/dn/cH3czS/btsPmorBLic/TTMKhYcsDJPKsLOAiFq3Yk/img.png" data-phocus="https://blog.kakaocdn.net/dn/cH3czS/btsPmorBLic/TTMKhYcsDJPKsLOAiFq3Yk/img.png" data-alt="크게 디자인적 요소는 없지만 깔끔하게 나온다"><img src="https://blog.kakaocdn.net/dn/cH3czS/btsPmorBLic/TTMKhYcsDJPKsLOAiFq3Yk/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcH3czS%2FbtsPmorBLic%2FTTMKhYcsDJPKsLOAiFq3Yk%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1079" height="1104" data-filename="스크린샷 2025-07-18 013326.png" data-origin-width="1079" data-origin-height="1104"/></span><figcaption>크게 디자인적 요소는 없지만 깔끔하게 나온다</figcaption>
+</figure>
+</p>
+<h4 data-ke-size="size20">패널 구현</h4>
+<p data-ke-size="size16">디테일 페이지를 대신할 사이드 패널을 구현하였다.</p>
+<p data-ke-size="size16">먼저 다양한 애니메이션을 시도하기 위해 tailwindcss-animated 설치</p>
+<pre id="code_1752770227019" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>yarn add tailwindcss-animated</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">tailwind v4부터는 이렇게 모듈을 설치하면 index.css에 import를 해줘야 한다. (기존 config 파일이 사라졌기 때문에)</p>
+<pre id="code_1752770331135" class="css" data-ke-language="css" data-ke-type="codeblock"><code>/* src\app\index.css */
+...
+@import "tailwindcss-animated";
+...</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">먼저 추후 다양한 패널이 필요할 것을 고려하여 base용 panel컴포넌트를 만들었다.</p>
+<p data-ke-size="size16">좌, 우, 위, 아래에서 나타난다고 가정해서 props를 설정하였다.</p>
+<p data-ke-size="size16">타 요소의 영향을 피하기 위해 createPortal로 감쌌고 tailwind-animated의 fade속성을 적극 활용하여 시각적 효과를 주었다.</p>
+<p data-ke-size="size16">createPortal의 정확한 역할은 추후 다른 포스트로 다뤄보겠다.</p>
+<pre id="code_1752770465219" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\ui\panel\panel.tsx
+import { type PropsWithChildren } from "react";
+import { createPortal } from "react-dom";
+import { twMerge } from "tailwind-merge";
+
+interface PanelProps extends PropsWithChildren{
+    isOpen: boolean;
+    position: "left" | "right" | "top" | "bottom";
+    className?: string;
 }
 
-export default MainPage;</code></pre>
+export const Panel = ({ isOpen, position, children, className }: PanelProps) =&gt; {
+    if (!isOpen) return null;
+
+    return (
+        createPortal(
+            &lt;div className={
+                twMerge(
+                    "fixed z-10",
+                    position === "left" &amp;&amp; "left-0 top-0 animate-fade-right",
+                    position === "right" &amp;&amp; "right-0 top-0 animate-fade-left",
+                    position === "top" &amp;&amp; "top-0 left-0 animate-fade-down",
+                    position === "bottom" &amp;&amp; "bottom-0 left-0 animate-fade-up",
+                    className
+                )
+            }&gt;
+                {children}
+            &lt;/div&gt;,
+            document.body
+        )
+    );
+}</code></pre>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">최종 화면은 이런 식으로 나왔다!</p>
-<p><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-16 025317.png" data-origin-width="739" data-origin-height="1409"><span data-url="https://blog.kakaocdn.net/dn/bqUqA1/btsPkmTwOUe/WG0T1sPd229PtaKlZEYxf0/img.png" data-phocus="https://blog.kakaocdn.net/dn/bqUqA1/btsPkmTwOUe/WG0T1sPd229PtaKlZEYxf0/img.png"><img src="https://blog.kakaocdn.net/dn/bqUqA1/btsPkmTwOUe/WG0T1sPd229PtaKlZEYxf0/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FbqUqA1%2FbtsPkmTwOUe%2FWG0T1sPd229PtaKlZEYxf0%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="739" height="1409" data-filename="스크린샷 2025-07-16 025317.png" data-origin-width="739" data-origin-height="1409"/></span></figure>
+<p data-ke-size="size16">해당 컴포넌트를 활용해서 데이터를 띄어줄 magazine-panel도 제작하였다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16"><span style="color: #333333; text-align: start;"><span>&nbsp;</span>rss파싱으로 가져온 content는 대게 HTML형식이 때문에</span> dangerouslySetInnerHTML을 사용하여 content를 띄웠다. (뷰어로 지칭하겠다)</p>
+<p data-ke-size="size16">mount/unmout 없이 data 바뀔 시 스크롤 초기화를 위해 useEffect로 변화를 감지하여 scrollTop = 0을 설정</p>
+<pre id="code_1752770669303" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\features\magazine\ui\magazine-panel.tsx
+import { XIcon } from "@shared/assets";
+import type { ParserData } from "@shared/model/parser";
+import { Panel } from "@shared/ui/panel"
+import { useEffect, useRef } from "react";
+
+export interface MagazinePanelProps {
+    data: ParserData | null;
+    isOpen: boolean;
+    onClose: () =&gt; void;
+}
+
+export const MagazinePanel = ({ data, isOpen, onClose }: MagazinePanelProps) =&gt; { 
+    const viewerRef = useRef&lt;HTMLDivElement&gt;(null);
+    
+    useEffect(() =&gt; {
+        if (viewerRef.current) {
+            viewerRef.current.scrollTop = 0;
+        }
+    }, [data]);
+
+    if (!data) return null;
+
+    return (
+        &lt;Panel
+            isOpen={isOpen}
+            position="right"
+            className="w-full h-full max-w-640 p-10"
+        &gt;
+            &lt;div className="rounded-xl shadow-xl flex flex-col gap-20 bg-white p-15 h-full"&gt;
+                &lt;div className="flex flex-row justify-between"&gt;
+                    &lt;div className="text-xl"&gt;{data?.title}&lt;/div&gt;
+                    &lt;button className="cursor-pointer" onClick={onClose}&gt;
+                        &lt;XIcon /&gt;
+                    &lt;/button&gt;
+                &lt;/div&gt;
+                &lt;div
+                    ref={viewerRef}
+                    className="overflow-y-auto whitespace-pre-wrap viewer"
+                    dangerouslySetInnerHTML={ { __html: data?.content ?? "" } }
+                /&gt;
+            &lt;/div&gt;
+        &lt;/Panel&gt;
+    )
+}</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">내부 뷰어에 viewer 클래스 네임을 줘서 따로 html태그들에 대한 스타일을 잡았다. (개취이기에 따로 코드는 x)</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">아까 만들어둔 리스트에 간단히 로직을 추가하여 아이템 클릭 시 패널이 뜨도록 하였다.</p>
+<pre id="code_1752771127893" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\pages\magazine\ui\initial\magazine-list.tsx
+import { MagazineItem } from "@features/magazine";
+import { MagazinePanel } from "@features/magazine/ui/magazine-panel";
+import { useDataContext } from "@shared/lib/data";
+import type { ParserData } from "@shared/model/parser";
+import { useCallback, useState } from "react";
+
+
+export const MagazineList = () =&gt; {
+    const data = useDataContext();
+
+    const [selectedData, setSelectedData] = useState&lt;ParserData | null&gt;(null);
+
+    const handleClickItem = useCallback((data: ParserData) =&gt; {
+        setSelectedData(data);
+    }, []);
+
+    const handleClosePanel = useCallback(() =&gt; {
+        setSelectedData(null);
+    }, []);
+    
+    return (
+        &lt;&gt;
+            &lt;div className="flex flex-col divide-y-1 divide-gray-200"&gt;
+                {
+                    data?.map((item, index) =&gt; (
+                        &lt;MagazineItem 
+                            key={index} 
+                            data={item}
+                            onClick={() =&gt; handleClickItem(item)}
+                            className="cursor-pointer py-15 px-10" 
+                        /&gt;
+                    ))
+                }
+            &lt;/div&gt;
+            &lt;MagazinePanel isOpen={!!selectedData} data={selectedData} onClose={handleClosePanel} /&gt;
+        &lt;/&gt;
+    );
+}</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size18"><b>결과</b></p>
+<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-18 015249.png" data-origin-width="1470" data-origin-height="1422"><span data-url="https://blog.kakaocdn.net/dn/Xv48n/btsPn7ogTf0/H4ssXlbbyqZgkDHIbsb6xK/img.png" data-phocus="https://blog.kakaocdn.net/dn/Xv48n/btsPn7ogTf0/H4ssXlbbyqZgkDHIbsb6xK/img.png" data-alt="사이드에 잘뜨는 것을 확인"><img src="https://blog.kakaocdn.net/dn/Xv48n/btsPn7ogTf0/H4ssXlbbyqZgkDHIbsb6xK/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FXv48n%2FbtsPn7ogTf0%2FH4ssXlbbyqZgkDHIbsb6xK%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1470" height="1422" data-filename="스크린샷 2025-07-18 015249.png" data-origin-width="1470" data-origin-height="1422"/></span><figcaption>사이드에 잘뜨는 것을 확인</figcaption>
+</figure>
 </p>
-<p data-ke-size="size16">#4부터는 퍼블리싱 작업에 들어가겠다</p>
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
+<h3 data-ke-size="size23">구글 번역</h3>
+<p data-ke-size="size16">해당 프로젝트의 고도화 목표 중 하나인 구글 번역을 추가해보려 한다.</p>
+<p data-ke-size="size16">구글 번역이 새로운 api는 유료 버전이라 구버전의 위젯 기능을 사용하여 구현하여야 해서 꽤나 불친절한 느낌을 받았다. (거의 십몇 년 된 것 같은 느낌...)</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">브랜치 #3</p>
-<p data-ke-size="size16"><a href="https://github.com/inho1019/front-end-magazine/tree/%233" target="_blank" rel="noopener&nbsp;noreferrer">https://github.com/inho1019/front-end-magazine/tree/%233</a></p>
+<p data-ke-size="size16">먼저 코드는 이렇게 작성했다.</p>
+<pre id="code_1752771480490" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\ui\google-translate\google-translate-provider.tsx
+...
+declare global {
+    interface Window {
+        googleTranslateElementInit?: () =&gt; void;
+        google?: {
+            translate: {
+                TranslateElement: new (options: object, elementId: string) =&gt; any;
+            };
+        };
+    }
+}
+...
+    const [isEnabled, setIsEnabled] = useState(false);
+
+    const toggleTranslate = useCallback(() =&gt; setIsEnabled(prev =&gt; !prev), []);
+
+    useEffect(() =&gt; {
+        if (!isEnabled) return;
+        const langCode = i18next.language.split("-")[0];
+
+        window.googleTranslateElementInit = () =&gt; {
+            if (window.google?.translate) {
+                new window.google.translate.TranslateElement(
+                    {
+                        autoDisplay: true 
+                    },
+                    "google_translate_element"
+                );
+            }
+        };
+
+        const script = document.createElement("script");
+        script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        script.async = true;
+        document.body.appendChild(script);
+
+        const handleChangeLanguage = (language = "") =&gt; {
+            const select = document.querySelector('select.goog-te-combo') as HTMLSelectElement | null;
+            if (select) {
+                select.value = language;
+                select.dispatchEvent(new Event('change'));
+            }
+        }
+        
+        setTimeout(() =&gt; {
+            handleChangeLanguage(langCode);
+        }, 1000)
+        return () =&gt; {
+           window.location.reload();
+        };
+    }, [isEnabled]);
+...</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">번역 부분은 방식만 봐도 구식 느낌이다.</p>
+<ol style="list-style-type: decimal;" data-ke-list-type="decimal">
+<li>isEnable 사용여부 분기 처리</li>
+<li>true일 경우 init (초기 설정 파일) 작성<br />ㄴTranslateElement 부분에 language 설정하는 부분 <br />(includeLanguages: 자체 위젯에서 사용할 언어들, pageLanguage: 현재 페이지의 언어)<br />이 있는데 나는 국제화를 적용할 거고 따로 위젯을 사용한 컨트롤을 하지 않을 거 기에 설정하지는 않았다.</li>
+<li>script를 body에 추가</li>
+<li>위젯의 dom속성을 활용하여 번역할 language를 설정 - 불필요한 ui요소를 만들기 싫어서 i18n의 현재 언어로 고정하였다.&nbsp;<br />ㄴscript적용을 기다려야 해서 setTimeout을 설정하여 1초 후에 적용시켰다.</li>
+<li>만약 <span style="color: #333333; text-align: left;">isEnable<span> false -&gt; return 될 경우 세로고침으로 해당 번역 초기화<br />ㄴ사실 여기서 좀 골머리가 썩었던 게 요소들을 제거해서 초기화하는 방식을 노렸으나 정상 동작하지 않았다.<br />특정 요소들을 날려도 계속 뭔가 남아서 번역 작업이 이루어지거나 console 에러가 발생하여 일단 세로고침하는 형식으로 진행... 추후 다른 방법을 찾으면 해당 방식으로 적용해 보겠다.</span></span><span style="color: #333333; text-align: left;"><span></span></span></li>
+</ol>
+<p data-ke-size="size16"><span style="color: #333333; text-align: left;"><span>그리고 해당 구글 번역 위젯의 쓸데없는 ui를 날리려면 index.css에서 설정을 해줘야 한다.</span></span></p>
+<pre id="code_1752772365268" class="css" data-ke-language="css" data-ke-type="codeblock"><code>/* src\app\index.css */
+...
+@layer base {
+  body {
+    top: 0 !important;
+  }
+  #google_translate_element,
+  .goog-te-banner-frame,
+  .goog-te-gadget,
+  .goog-te-menu-value,
+  .skiptranslate,
+  .VIpgJd-ZVi9od-aZ2wEe-wOHMyf {
+    display: none !important;
+  }
+}
+...</code></pre>
+<p data-ke-size="size16">위에 위젯 띄우면서 body에 강제로 top을 줘버리기에 important로 해서 top: 0을 줘야 한다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">해당 번역 로직은 useContext/Provider를 활용하여 전역으로 적용하였다.</p>
+<p data-ke-size="size16">사실 이것도 패널 부분만 번역하려 했는데 아무리 영역 제한을 특정 doc에만 걸어도 전체를 번역하기에 이렇게 전역으로 관리할 수 밖에 없었다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16"><span style="color: #333333; text-align: start;"><span>&nbsp;</span>useContext/Provider</span> 관련해서는 이전 챕터에서 다뤘기에 따로 다루지는 않겠다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size18"><b>결과</b></p>
+<p data-ke-size="size16">상단에 토글 버튼을 만들어 간단히 영어 포스트에 번역을 적용해 보았다.</p>
+<p><figure class="imageblock alignCenter" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2025-07-18 021746.png" data-origin-width="758" data-origin-height="1347"><span data-url="https://blog.kakaocdn.net/dn/ZLAMq/btsPopvqVhM/d7zsuTBXQi6kw6tNymfGB1/img.png" data-phocus="https://blog.kakaocdn.net/dn/ZLAMq/btsPopvqVhM/d7zsuTBXQi6kw6tNymfGB1/img.png" data-alt="잘되긴한다!"><img src="https://blog.kakaocdn.net/dn/ZLAMq/btsPopvqVhM/d7zsuTBXQi6kw6tNymfGB1/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FZLAMq%2FbtsPopvqVhM%2Fd7zsuTBXQi6kw6tNymfGB1%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="758" height="1347" data-filename="스크린샷 2025-07-18 021746.png" data-origin-width="758" data-origin-height="1347"/></span><figcaption>잘되긴한다!</figcaption>
+</figure>
+</p>
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
+<p data-ke-size="size16">구글 번역 부분은 보강이 좀 더 필요하다고 생각한다... 열심히 찾아보면 세로고침 없이 해제하는 법이 있을 거라고 생각이 든다.</p>
+<p data-ke-size="size16">#5 전에 #4. 5에서 GitHub Pages를 사용한 배포를 다뤄보려고 한다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">브랜치 #4</p>
+<p data-ke-size="size16"><a href="https://github.com/inho1019/front-end-magazine/tree/%234" target="_blank" rel="noopener&nbsp;noreferrer">https://github.com/inho1019/front-end-magazine/tree/%234</a>&nbsp;&nbsp;</p>
 </details>
