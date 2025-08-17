@@ -38,6 +38,8 @@
   <ul>
 
 <li>
+    <a href="https://inho-m.tistory.com/18">FE Trend 개발기 #8 - AI 요약 기능 추가 (고도화)</a>
+</li><li>
     <a href="https://inho-m.tistory.com/17">FE Trend 개발기 #7 - 코드 에디터 추가 및 개선(고도화)</a>
 </li><li>
     <a href="https://inho-m.tistory.com/16">정적 페이지 데이터 압축으로 트래픽 줄이기 (feat. fflate)</a>
@@ -45,8 +47,6 @@
     <a href="https://inho-m.tistory.com/14">FE Trend 개발기 #6 - 웹 3차(마지막)</a>
 </li><li>
     <a href="https://inho-m.tistory.com/13">FE Trend 개발기 #5 - 웹 2차</a>
-</li><li>
-    <a href="https://inho-m.tistory.com/12">FE Trend 개발기 #4.1 - 구글 번역 개선</a>
 </li>
   </ul>
   <a href="https://inho-m.tistory.com">전체글보기</a>
@@ -55,371 +55,351 @@
 ### Recent Post
 
 <details>
-<summary>FE Trend 개발기 #7 - 코드 에디터 추가 및 개선(고도화)</summary>
+<summary>FE Trend 개발기 #8 - AI 요약 기능 추가 (고도화)</summary>
 <br/>
-<p data-ke-size="size16">타 프로젝트를 진행하려다 다른 일정이랑 겹치면 애매할 것 같아서 고도화를 먼저 진행하였다.</p>
+<p data-ke-size="size16">프로젝트 실사용을 하던중 ai 관련 기능 고민중 원하는 글에 대한 ai 요약 기능을 사용하면 참 좋겠다는 생각이 들어 구현을 해보았다.</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">코드 에디터 추가</h3>
-<p data-ke-size="size16">코드에디터는 찾아보다가 디자인도 깔끔하고 어느정도 커스터마이징이 가능한 Sandpack을 사용하기로 하였다.</p>
-<p data-ke-size="size16"><a href="https://sandpack.codesandbox.io/docs" target="_blank" rel="noopener&nbsp;noreferrer">https://sandpack.codesandbox.io/docs</a></p>
-<figure id="og_1754618519821" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="website" data-og-title="Introduction | Sandpack Docs &ndash; Sandpack" data-og-description="Sandpack is a component toolkit for creating your own live-running code editing experiences powered by CodeSandbox." data-og-host="sandpack.codesandbox.io" data-og-source-url="https://sandpack.codesandbox.io/docs" data-og-url="https://sandpack.codesandbox.io/docs" data-og-image="https://scrap.kakaocdn.net/dn/bN9Ueb/hyZuz9wE2x/6YB4VkXUQcn4uZ4gfQKGh0/img.jpg?width=1200&amp;height=627&amp;face=0_0_1200_627"><a href="https://sandpack.codesandbox.io/docs" target="_blank" rel="noopener" data-source-url="https://sandpack.codesandbox.io/docs">
-<div class="og-image" style="background-image: url('https://scrap.kakaocdn.net/dn/bN9Ueb/hyZuz9wE2x/6YB4VkXUQcn4uZ4gfQKGh0/img.jpg?width=1200&amp;height=627&amp;face=0_0_1200_627');">&nbsp;</div>
+<h3 data-ke-size="size23">Gemini api 를 사용한 ai 기능 사용하기</h3>
+<p data-ke-size="size16">여러 ai api 에서 고민하던중 Gemini api 를 선택했다.</p>
+<p data-ke-size="size16">Gemini api는 가장 가벼운 모델인 <span style="background-color: #ffffff; color: #202124; text-align: left;">gemini-2</span><span style="background-color: #ffffff; color: #202124; text-align: left;">.</span><span style="background-color: #ffffff; color: #202124; text-align: left;">5-flash-lite 모델을 사용시 하루에 1000건까지 무료로 사용이 가능하다.</span></p>
+<p data-ke-size="size16"><span style="background-color: #ffffff; color: #ee2323; text-align: left;">다만 무료사용시 정보수집에 자동적으로 동의하게 되므로 민감한 개인정보 및 회사 프로젝트, 기타 보안상 문제있는 작업은 하지 않는것이 좋다.</span></p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16"><span style="background-color: #ffffff; color: #000000; text-align: left;">사용법은 진짜 간단하다.</span></p>
+<p data-ke-size="size16"><span style="background-color: #ffffff; color: #000000; text-align: left;"><a href="https://ai.google.dev/gemini-api/docs?hl=ko" target="_blank" rel="noopener&nbsp;noreferrer">https://ai.google.dev/gemini-api/docs?hl=ko</a></span></p>
+<figure id="og_1755427432246" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="website" data-og-title="Gemini API &nbsp;|&nbsp; Google AI for Developers" data-og-description="Gemini Developer API 문서 및 API 참조" data-og-host="ai.google.dev" data-og-source-url="https://ai.google.dev/gemini-api/docs?hl=ko" data-og-url="https://ai.google.dev/gemini-api/docs?hl=ko" data-og-image="https://scrap.kakaocdn.net/dn/bzU7rA/hyZzKpcLtG/sPEXCfuMP8w6wM7Nm3YKB0/img.png?width=1200&amp;height=675&amp;face=0_0_1200_675,https://scrap.kakaocdn.net/dn/ejcBd2/hyZygCduI0/kkUcQvxNRW0PgBnI8e7tjK/img.png?width=774&amp;height=406&amp;face=0_0_774_406,https://scrap.kakaocdn.net/dn/cKifaV/hyZylcrSU3/SGkjBSNm0qKtq4ApRlpq51/img.png?width=774&amp;height=406&amp;face=0_0_774_406"><a href="https://ai.google.dev/gemini-api/docs?hl=ko" target="_blank" rel="noopener" data-source-url="https://ai.google.dev/gemini-api/docs?hl=ko">
+<div class="og-image" style="background-image: url('https://scrap.kakaocdn.net/dn/bzU7rA/hyZzKpcLtG/sPEXCfuMP8w6wM7Nm3YKB0/img.png?width=1200&amp;height=675&amp;face=0_0_1200_675,https://scrap.kakaocdn.net/dn/ejcBd2/hyZygCduI0/kkUcQvxNRW0PgBnI8e7tjK/img.png?width=774&amp;height=406&amp;face=0_0_774_406,https://scrap.kakaocdn.net/dn/cKifaV/hyZylcrSU3/SGkjBSNm0qKtq4ApRlpq51/img.png?width=774&amp;height=406&amp;face=0_0_774_406');">&nbsp;</div>
 <div class="og-text">
-<p class="og-title" data-ke-size="size16">Introduction | Sandpack Docs &ndash; Sandpack</p>
-<p class="og-desc" data-ke-size="size16">Sandpack is a component toolkit for creating your own live-running code editing experiences powered by CodeSandbox.</p>
-<p class="og-host" data-ke-size="size16">sandpack.codesandbox.io</p>
+<p class="og-title" data-ke-size="size16">Gemini API &nbsp;|&nbsp; Google AI for Developers</p>
+<p class="og-desc" data-ke-size="size16">Gemini Developer API 문서 및 API 참조</p>
+<p class="og-host" data-ke-size="size16">ai.google.dev</p>
 </div>
 </a></figure>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">먼저 설치를 해주었다</p>
-<pre id="code_1754618579393" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>yarn add @codesandbox/sandpack-react</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">Sandpack의 특징은 완성된 에디터를 제공하기도 하지만 각파트별로 컴포넌트를 제공하여 내가 입맛에 맞게 변형하여 사용이 가능하다.</p>
-<p data-ke-size="size16">그리고 SandpackLayout은 자체적으로 반응형으로 작동하여 디바이스에 맞춤형으로 제작하는데도 용이하다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">내가 이번 프로젝트에서 목표한 코드 에디터 요구 사항은 이러하다.</p>
-<ol style="list-style-type: decimal;" data-ke-list-type="decimal">
-<li>코드 템플릿 변경 기능</li>
-<li>에디터 내에 타겟 파일(js, css...) 변경 기능</li>
-<li>라이브로 프리뷰 보기 기능</li>
-<li>css 및 자체 테마 변경 기능</li>
-</ol>
-<p data-ke-size="size16">처음에는 기본으로 제공되는 Sandpack 컴포넌트를 사용하여 구현하려 하였으나 단순 Sandpack 컴포넌트 기능으로 요구사항에 맞추어 개발하는 게 어려웠다. 특히 1, 2번 요구 사항이 커스터마이징 없이 구현하는데 제약이 있었다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">Sandpack공식문서를 참고하면 다양한 컴포넌트들을 제공하고 그것들을 조합하여 구현하는것이 가능하다.</p>
-<p data-ke-size="size16">그러한 점을 이용해 1, 2번 기능을 별개로 구현하여 연결하는 방식으로 작업을 진행하였다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">코드 템플릿 Selector</h4>
-<p data-ke-size="size16">먼저 코드 템플릿 선택 기능을 구현하였다.</p>
-<p data-ke-size="size16">select 태그를 사용하였고 제공되는 SANDBOX_TEMPLATES(Sandpack에서 제공하는 tamplate) alias에서 키값을 추출하여 options로 사용하였다.</p>
-<pre id="code_1754634475841" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>import { SANDBOX_TEMPLATES, SandpackProvider, type SandpackPredefinedTemplate } from "@codesandbox/sandpack-react";
+<p data-ke-size="size16">간단히 패키지 설치, 모델 설정, 질문할 프롬포트를 설정하면 response로 결과를 반환해준다.</p>
+<pre id="code_1755427087033" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>import { GoogleGenAI } from "@google/genai";
 
-const TEMPLATE_OPTIONS = Object.keys(SANDBOX_TEMPLATES).map((key) =&gt; {
-    const keys = key.split('-');
-    const label = key.length &gt; 0 ? keys.map(k =&gt; k === "ts" ? "TypeScript" : k.charAt(0).toUpperCase() + k.slice(1)).join(' + ') : keys[0].charAt(0).toUpperCase() + keys[0].slice(1);
-    return {
-        value: key as SandpackPredefinedTemplate,
-        label: label,
-    };
-});
+const ai = new GoogleGenAI({ 본인의 API키 });
 
-export const CodeEditor = () =&gt; {
-
-    const [template, setTemplate] = useState&lt;SandpackPredefinedTemplate&gt;("react-ts");
-        &lt;SandpackProvider
-            template={template}
-        &gt;
- ...
-                        &lt;select
-                            value={template}
-                            onChange={(e) =&gt; setTemplate(e.target.value as SandpackPredefinedTemplate)}
-                            className="mb-auto cursor-pointer py-8 px-16 text-xs border border-[#EFEFEF] rounded outline-none dark:text-[#EFEFEF] dark:border-[#252525] dark:bg-[#151515] max-sm:w-full"
-                        &gt;
-                            {TEMPLATE_OPTIONS.map((option) =&gt; (
-                                &lt;option key={option.value} value={option.value}&gt;
-                                    {option.label}
-                                &lt;/option&gt;
-                            ))}
-                        &lt;/select&gt;
-...
-		&lt;/SandpackProvider&gt;
-    );
-}</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">options는 좀더 자연스럽게 표현하기 위해 약자로 쓰여있는 ts를 typescript로 바꿔 주었고 다중 템플릿일 때 템플릿별 연결을 +로 하였다.</p>
-<p data-ke-size="size16">template를 상태값으로 설정하였고 SandpackProvider에 추가해주었다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size18"><b>테스트</b></p>
-<p><figure class="imageblock alignLeft" data-ke-mobileStyle="widthOrigin" data-filename="Aug-08-2025 15-33-09.gif" data-origin-width="300" data-origin-height="434"><span data-url="https://blog.kakaocdn.net/dn/EkzvK/btsPLX62Q8g/xIqYv2knzt6giKYWO7SgNK/img.gif" data-phocus="https://blog.kakaocdn.net/dn/EkzvK/btsPLX62Q8g/xIqYv2knzt6giKYWO7SgNK/img.gif"><img src="https://blog.kakaocdn.net/dn/EkzvK/btsPLX62Q8g/xIqYv2knzt6giKYWO7SgNK/img.gif" srcset="https://blog.kakaocdn.net/dn/EkzvK/btsPLX62Q8g/xIqYv2knzt6giKYWO7SgNK/img.gif" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="300" height="434" data-filename="Aug-08-2025 15-33-09.gif" data-origin-width="300" data-origin-height="434"/></span></figure>
-</p>
-<p data-ke-size="size16">원하는 대로 코드 템플릿 설정이 가능해졌다.</p>
-<h4 data-ke-size="size20">파일 탐색기</h4>
-<p data-ke-size="size16">파일 탐색기는 SandpackFileExplorer 컴포넌트로 제공이 된다.</p>
-<p data-ke-size="size16">해당 컴포넌트가 레이아웃에서 사용하는 것을 고려하여 만들어져서 details/summary 태그를 사용해 selector처럼 구현하고 useClickAway 훅을 구현하여 영역 밖 클릭 시 닫히도록 하였다.</p>
-<pre id="code_1754636721064" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src/shared/lib/utils/use-click-away.ts
-import { useEffect, useRef, type RefObject } from "react";
-
-export function useClickAway&lt;T extends HTMLElement&gt;(
-  callback: (e: MouseEvent) =&gt; void
-): RefObject&lt;T | null&gt; {
-  const ref = useRef&lt;T&gt;(null);
-
-  useEffect(() =&gt; {
-    const handler = (e: MouseEvent) =&gt; {
-      if (ref.current &amp;&amp; !ref.current.contains(e.target as Node)) {
-        callback(e);
-      }
-    };
-
-    document.addEventListener("mousedown", handler);
-    return () =&gt; {
-      document.removeEventListener("mousedown", handler);
-    };
-  }, [callback]);
-
-  return ref;
-}</code></pre>
-<p data-ke-size="size16">element를 지정하면 해당 element의 영역 외 클릭시 원하는 로직을 실행시키는 훅이다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<pre id="code_1754637049191" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>import { SandpackFileExplorer, SandpackProvider } from "@codesandbox/sandpack-react";
-import { FileIcon } from "@shared/assets";
-import { useClickAway } from "@shared/lib/utils";
-import { useRef } from "react";
-
-export const CodeEditor = () =&gt; {
-    const detailsRef = useRef&lt;HTMLDetailsElement&gt;(null);
-    const clickAwayRef = useClickAway&lt;HTMLDivElement&gt;(() =&gt; {
-        if (detailsRef.current) {
-            detailsRef.current.open = false;
-        }
-    });
-
-    return (
-        &lt;SandpackProvider&gt;
-...
-                    &lt;div ref={clickAwayRef} className="relative flex-1 border border-[#EFEFEF] rounded dark:text-[#EFEFEF] dark:border-[#252525] dark:bg-[#151515]"&gt;
-                        &lt;details ref={detailsRef} open={false} className="peer"&gt;
-                            &lt;summary className="cursor-pointer py-8 px-16 text-xs flex flex-row gap-5 items-center justify-center"&gt;
-                                &lt;FileIcon /&gt;
-                                {trans("common.codeEditor.fileExplorer", "파일 탐색기")}
-                            &lt;/summary&gt;
-                        &lt;/details&gt;
-                        &lt;div className="absolute top-36 left-0 hidden peer-open:block z-1 w-full border border-[#EFEFEF] rounded dark:text-[#EFEFEF] dark:border-[#252525] dark:bg-[#151515]"&gt;
-                        	&lt;SandpackFileExplorer /&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-...
-        &lt;/SandpackProvider&gt;
-    )
-}</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16"><b>테스트</b></p>
-<p><figure class="imageblock alignLeft" data-ke-mobileStyle="widthOrigin" data-filename="Aug-08-2025 16-14-20.gif" data-origin-width="452" data-origin-height="338"><span data-url="https://blog.kakaocdn.net/dn/Fyxg0/btsPMQ7rYAd/9x1GEBBboy3Gszg414kkA0/img.gif" data-phocus="https://blog.kakaocdn.net/dn/Fyxg0/btsPMQ7rYAd/9x1GEBBboy3Gszg414kkA0/img.gif"><img src="https://blog.kakaocdn.net/dn/Fyxg0/btsPMQ7rYAd/9x1GEBBboy3Gszg414kkA0/img.gif" srcset="https://blog.kakaocdn.net/dn/Fyxg0/btsPMQ7rYAd/9x1GEBBboy3Gszg414kkA0/img.gif" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="452" height="338" data-filename="Aug-08-2025 16-14-20.gif" data-origin-width="452" data-origin-height="338"/></span></figure>
-</p>
-<h4 data-ke-size="size20">결과물</h4>
-<pre id="code_1754637476706" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src/features/code/ui/code-editor.tsx
-import { SANDBOX_TEMPLATES, SandpackCodeEditor, SandpackFileExplorer, SandpackLayout, SandpackPreview, SandpackProvider, type SandpackPredefinedTemplate } from "@codesandbox/sandpack-react";
-import { FileIcon } from "@shared/assets";
-import { useTheme } from "@shared/lib/theme";
-import { useClickAway, useTrans } from "@shared/lib/utils";
-import { useRef, useState } from "react";
-
-const TEMPLATE_OPTIONS = Object.keys(SANDBOX_TEMPLATES).map((key) =&gt; {
-    const keys = key.split('-');
-    const label = key.length &gt; 0 ? keys.map(k =&gt; k === "ts" ? "TypeScript" : k.charAt(0).toUpperCase() + k.slice(1)).join(' + ') : keys[0].charAt(0).toUpperCase() + keys[0].slice(1);
-    return {
-        value: key as SandpackPredefinedTemplate,
-        label: label,
-    };
-});
-
-export const CodeEditor = () =&gt; {
-    const trans = useTrans();
-    const detailsRef = useRef&lt;HTMLDetailsElement&gt;(null);
-    const clickAwayRef = useClickAway&lt;HTMLDivElement&gt;(() =&gt; {
-        if (detailsRef.current) {
-            detailsRef.current.open = false;
-        }
-    });
-    const [template, setTemplate] = useState&lt;SandpackPredefinedTemplate&gt;("react-ts");
-    const { currentTheme } = useTheme();
-
-    return (
-        &lt;SandpackProvider
-            template={template}
-            theme={currentTheme}
-        &gt;
-            &lt;div className="space-y-10"&gt;
-                &lt;div className="flex flex-row gap-10 max-sm:flex-col-reverse"&gt;
-                    &lt;div ref={clickAwayRef} className="relative flex-1 border border-[#EFEFEF] rounded dark:text-[#EFEFEF] dark:border-[#252525] dark:bg-[#151515]"&gt;
-                        &lt;details ref={detailsRef} open={false} className="peer"&gt;
-                            &lt;summary className="cursor-pointer py-8 px-16 text-xs flex flex-row gap-5 items-center justify-center"&gt;
-                                &lt;FileIcon /&gt;
-                                {trans("common.codeEditor.fileExplorer", "파일 탐색기")}
-                            &lt;/summary&gt;
-                        &lt;/details&gt;
-                        &lt;div className="absolute top-36 left-0 hidden peer-open:block z-1 w-full border border-[#EFEFEF] rounded dark:text-[#EFEFEF] dark:border-[#252525] dark:bg-[#151515]"&gt;
-                            &lt;code className="font-sans tracking-wide"&gt;
-                                &lt;SandpackFileExplorer /&gt;
-                            &lt;/code&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;code&gt;
-                        &lt;select
-                            value={template}
-                            onChange={(e) =&gt; setTemplate(e.target.value as SandpackPredefinedTemplate)}
-                            className="mb-auto cursor-pointer py-8 px-16 text-xs border border-[#EFEFEF] rounded outline-none dark:text-[#EFEFEF] dark:border-[#252525] dark:bg-[#151515] max-sm:w-full"
-                        &gt;
-                            {TEMPLATE_OPTIONS.map((option) =&gt; (
-                                &lt;option key={option.value} value={option.value}&gt;
-                                    {option.label}
-                                &lt;/option&gt;
-                            ))}
-                        &lt;/select&gt;
-                    &lt;/code&gt;
-                &lt;/div&gt;
-                &lt;div&gt;
-                &lt;SandpackLayout&gt;
-                    &lt;SandpackCodeEditor showLineNumbers wrapContent showTabs={false} /&gt;
-                    &lt;SandpackPreview showOpenInCodeSandbox={false} /&gt;
-                &lt;/SandpackLayout&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/SandpackProvider&gt;
-    );
-}</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">조금 기능을 더 추가해서 전역 관리 되는 패널로 만들었다.</p>
-<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="Aug-08-2025 16-21-40.gif" data-origin-width="750" data-origin-height="460"><span data-url="https://blog.kakaocdn.net/dn/cg40qV/btsPKIJTD9h/K1gZtsbKD2d4KaLcQPkV6k/img.gif" data-phocus="https://blog.kakaocdn.net/dn/cg40qV/btsPKIJTD9h/K1gZtsbKD2d4KaLcQPkV6k/img.gif"><img src="https://blog.kakaocdn.net/dn/cg40qV/btsPKIJTD9h/K1gZtsbKD2d4KaLcQPkV6k/img.gif" srcset="https://blog.kakaocdn.net/dn/cg40qV/btsPKIJTD9h/K1gZtsbKD2d4KaLcQPkV6k/img.gif" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="750" height="460" data-filename="Aug-08-2025 16-21-40.gif" data-origin-width="750" data-origin-height="460"/></span></figure>
-</p>
-<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<h3 data-ke-size="size23">CustomEvent를 사용하여 dom에 커스텀 이벤트 디스패치하기</h3>
-<p data-ke-size="size16">파싱 된 데이터들의 code 태그에 클릭만 해도 클립보드에 복사되는 기능을 구현하였다.</p>
-<pre id="code_1754638901136" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// scripts/action.ts
-function sanitizeRSSContent(rawHTML: string): string {
-    DOMPurify.addHook('afterSanitizeAttributes', function (node) {
-        if (node.tagName === 'PRE') {
-            node.setAttribute('onclick', `
-                navigator.clipboard.writeText(this.innerText);
-            `);
-        }
-        if (node.tagName === 'CODE' &amp;&amp; node.parentElement?.tagName !== 'PRE') {
-            node.setAttribute('onclick', `
-                navigator.clipboard.writeText(this.innerText);
-            `);
-        }
-    });
-...</code></pre>
-<p data-ke-size="size16">이런 식으로 파싱 한 데이터의 정제 과정을 거칠 때 태그에 추가하는 방식으로 복사를 구현하였다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">그런데 하나 문제가 되는 게 사용자 경험상 복사했는지 여부를 알 수 없는 것이다.</p>
-<p data-ke-size="size16">단순 alert로 표기하기에는 디자인적 요소를 해치기에 토스트 메시지 형식으로 메시지를 표출하기로 했다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">메시지 기능</h4>
-<pre id="code_1754639718171" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src/shared/lib/message/use-message-context.tsx
-import { createContext, useContext } from "react";
-
-type MessageContextType = {
-  addMessage: (message: string) =&gt; void;
-} | null;
-
-export const MessageContext = createContext&lt;MessageContextType | null&gt;(null);
-
-export const useMessageContext = () =&gt; {
-  return useContext(MessageContext);
-};
-
-
-import { MessageContext } from "@shared/lib/message";
-import { useCallback, useEffect, useMemo, useState, type PropsWithChildren } from "react";
-import { createPortal } from "react-dom";
-
-
-// src/shared/lib/message/use-message.tsx
-import { useContext } from "react";
-import { MessageContext } from "./use-message-context";
-
-export const useMessage = () =&gt; {
-    const data = useContext(MessageContext);
-    if (!data) {
-        throw new Error("useMessage must be used within a MessageProvider");
-    }
-
-    return data;
+async function main() {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash-lite",
+    contents: "Explain how AI works in a few words",
+  });
+  console.log(response.text);
 }
 
+await main();</code></pre>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">하지만 해당 방법을 웹상에서 그대로 사용하는것은 상당히 문제가 있다.</p>
+<p data-ke-size="size16">바로 요청시 api 키가 그대로 노출이 되어버리기 때문에 보안 및 악용의 우려가 있다.</p>
+<p data-ke-size="size16">나는 해당 작업을 cloudflare의 worker기능을 사용하여 우회하고 CORS설정을 하여 허용할 사이트를 설정해주었다.</p>
+<pre id="code_1755427808710" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// worker.js
+export default {
+  async fetch(request, env) {
+    const allowedOrigin = "https://fe-trend.netlify.app"; // 허용할 도메인
+    const origin = request.headers.get("Origin");
 
-// src/shared/ui/message/message-provider.tsx
-export const MessageProvider = ({ children }: PropsWithChildren) =&gt; {
-    const [message, setMessage] = useState&lt;string&gt;("");
-    const [trigger, setTrigger] = useState(false);
+    if (request.method === "OPTIONS") {
+      // Preflight 요청에 대한 응답
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": origin === allowedOrigin ? allowedOrigin : "null",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Max-Age": "86400",
+        },
+      });
+    }
 
-    useEffect(() =&gt; {
-        if (!message) return;
-        const timeout = setTimeout(() =&gt; {
-            setMessage("");
-        }, 3000);
+    if (origin !== allowedOrigin) {
+      return new Response("CORS 정책에 의해 차단됨", { status: 403 });
+    }
 
-        return () =&gt; clearTimeout(timeout);
-    }, [message, trigger]);
+    if (request.method !== "POST") {
+      return new Response("POST 요청만 허용됩니다", { status: 405 });
+    }
 
-    const addMessage = useCallback((msg: string) =&gt; {
-        setTrigger(prev =&gt; !prev);
-        setMessage(msg);
-    }, []);
+    const requestJSON = await request.json();
+    const requestContent = requestJSON.content.trim();
+    const requestLanguage = requestJSON.language;
 
-    return (
-        &lt;MessageContext.Provider value={useMemo(() =&gt; ({
-            addMessage,
-        }), [addMessage])}&gt;
-            {children}
-            {
-                createPortal(
-                    &lt;div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-9999"&gt;
-                        {message &amp;&amp; (
-                            &lt;div key={trigger.toString()} className="bg-gray-100 text-sm font-medium px-16 py-12 rounded-md animate-message dark:bg-[#222]"&gt;
-                                {message}
-                            &lt;/div&gt;
-                        )}
-                    &lt;/div&gt;,
-                    document.body
-                )
-            }
-        &lt;/MessageContext.Provider&gt;
-    )
+    if (!requestContent) {
+      return new Response("request 데이터가 없습니다", { status: 405 });
+    }
+
+    // GoogleGenAI API 호출용 fetch
+    const apiResponse = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": env.GEMINI_API_KEY,
+      },
+      body: JSON.stringify({
+        "contents": [
+          {
+            "parts": [
+              {
+                "text": `본문: ${requestContent}
+
+                  - 아래 조건을 꼭 지켜서 요약해줘:
+                  - 바로 dangerouslySetInnerHTML에 사용할 수 있게, 불필요한 마크다운 문법(예: \`\`\`html, \`\`\`) 없이 순수 HTML 태그만 출력할 것
+                  - 요약시 ${requestLanguage} 언어로 번역할 것`
+              }
+            ]
+          }
+        ],
+      }),
+    });
+
+    const responseData = await apiResponse.json();
+    const responseText = responseData.candidates?.[0]?.content?.parts?.[0]?.text
+
+    if (!responseText) {
+      return new Response("response 데이터가 없습니다", { status: 405 });
+    }
+
+    return new Response(responseText, {
+      status: apiResponse.status,
+      headers: {
+        "Content-Type": "text/plain",
+        "Access-Control-Allow-Origin": allowedOrigin,
+      },
+    });
+  }
 }</code></pre>
-<p data-ke-size="size16">addMessage함수 사용 시 메시지가 3초 동아 노출되었다가 사라지도록 구현하였다.</p>
-<p data-ke-size="size16">createPortal를 사용하여 외부 속성의 영향을 받지 않도록 하였고 tailwind로 커스텀 애니메이션을 설정했다.</p>
-<p data-ke-size="size16">trigger는 새 메시지가 들어오면 메시지 div의 key가 바뀌도록 하여 컴포넌트 리랜더링을 유도했다.&nbsp;</p>
+<p data-ke-size="size16">CORS 설정을 해뒀고 body에 content와 language 값을 받아서 해당언어에 맞게 요약을 할 수 있도록 하였다.</p>
+<p data-ke-size="size16"><a href="https://ai.google.dev/gemini-api/docs?hl=ko#rest" target="_blank" rel="noopener&nbsp;noreferrer">https://ai.google.dev/gemini-api/docs?hl=ko#rest</a></p>
+<p data-ke-size="size16">REST API로 사용하는 방식이 있으니 잘참고하고 이경우 response형식도 특정 json형식으로 반환하기에 내가 원하는 값을 얻으려면 공식문서를 잘살펴보는게 좋을것같다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<h4 data-ke-size="size20">커스텀 이벤트</h4>
-<p data-ke-size="size16">문제는 이것을 만들어진 dom 속성에 넘겨줘야 된다는 것이다.</p>
-<p data-ke-size="size16">고민하다 커스텀 이벤트로 만들어 디스패치하는 방식을 선택했다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">먼저 addEventListener로 이벤트를 추가해 줬다.</p>
-<pre id="code_1754640636337" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src/features/trend/ui/trend-panel.tsx
-...
-    useEffect(() =&gt; {
-        const copyMessage = () =&gt; addMessage(trans("trend.copyCode", "코드 복사 완료"));
-        window.addEventListener("copy-message", copyMessage);
-        return () =&gt; window.removeEventListener("copy-message", copyMessage);
-    }, [addMessage, trans]);
-...</code></pre>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">그런 다음 데이터 정제 과정에서 CustomEvent를 추가해 줬다.</p>
-<pre id="code_1754641004323" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>...
-        if (node.tagName === 'PRE') {
-            node.setAttribute('onclick', `
-                navigator.clipboard.writeText(this.innerText);
-                window.dispatchEvent(new CustomEvent('copy-message'));
-            `);
-        }
-        if (node.tagName === 'CODE' &amp;&amp; node.parentElement?.tagName !== 'PRE') {
-            node.setAttribute('onclick', `
-                navigator.clipboard.writeText(this.innerText);
-                window.dispatchEvent(new CustomEvent('copy-message'));
-            `);
-        }
-...</code></pre>
-<p data-ke-size="size18">&nbsp;</p>
-<p data-ke-size="size18"><b>테스트</b></p>
-<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="Aug-08-2025 17-18-04.gif" data-origin-width="778" data-origin-height="540"><span data-url="https://blog.kakaocdn.net/dn/oh9Ix/btsPNbXYfxc/Ep20aYieqLsFPHcc0TtTY1/img.gif" data-phocus="https://blog.kakaocdn.net/dn/oh9Ix/btsPNbXYfxc/Ep20aYieqLsFPHcc0TtTY1/img.gif"><img src="https://blog.kakaocdn.net/dn/oh9Ix/btsPNbXYfxc/Ep20aYieqLsFPHcc0TtTY1/img.gif" srcset="https://blog.kakaocdn.net/dn/oh9Ix/btsPNbXYfxc/Ep20aYieqLsFPHcc0TtTY1/img.gif" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="778" height="540" data-filename="Aug-08-2025 17-18-04.gif" data-origin-width="778" data-origin-height="540"/></span></figure>
-</p>
+<p data-ke-size="size16">해당 worker의 주소를 프로젝트상에서 사용하여 요약된 정보를 잘받아오는것을 확인했다.</p>
+<h4 data-ke-size="size20">문제</h4>
+<p data-ke-size="size16">아무래도 무료 API 이기에 하루 1000회 제한이 있다. 이렇게 트래픽 적고 사용자가 많지 않은 경우에는 문제가 되지 않지만 만약 사용자가 어느정도 확보가 되었을때는 매번 요청시 금방 요청 리워드가 바닥나는 경우가 생길것이다.</p>
 <hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
-<p data-ke-size="size16">이제 포스트에서 원하는 코드를 복사하여 코드에디터에 붙여 넣는 것이 가능해졌다!</p>
-<p data-ke-size="size16">다음으로 ai 챗봇 고도화 작업을 하고 싶은데 언제 할지는 모르겠다. 차기 프로젝트도 진행하고 싶고 슬슬 회사 일이 많아지고 있기 때문에...</p>
-<p data-ke-size="size16">아무튼 근시일 내로 뭐든 작업을 시작해야겠다.</p>
+<h3 data-ke-size="size23">GitHub Rest Api</h3>
+<p data-ke-size="size16">그래서 생각한것이 요약한 정보를 아카이브 형식으로 깃허브에 저장해두고 추후 확인할수 있게하는 방법이었다.</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">브랜치 #7</p>
-<p data-ke-size="size16"><a href="https://github.com/inho1019/front-end-trend/tree/%237" target="_blank" rel="noopener&nbsp;noreferrer">https://github.com/inho1019/front-end-trend/tree/%237</a></p>
-<p data-ke-size="size16">사이트</p>
-<p data-ke-size="size16"><a href="https://fe-trend.netlify.app/" target="_blank" rel="noopener&nbsp;noreferrer">https://fe-trend.netlify.app/</a></p>
-<figure id="og_1754641469241" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="website" data-og-title="FE Trend" data-og-description="최신 프론트엔드 트렌드와 기술 정보를 제공합니다." data-og-host="fe-trend.netlify.app" data-og-source-url="https://fe-trend.netlify.app/" data-og-url="https://fe-trend.netlify.app/" data-og-image=""><a href="https://fe-trend.netlify.app/" target="_blank" rel="noopener" data-source-url="https://fe-trend.netlify.app/">
-<div class="og-image" style="background-image: url();">&nbsp;</div>
+<p data-ke-size="size16">해당 방식을 위해 이전에 사용했던 Octokit대신 이번엔 워커에서 좀더 편하게 사용할수 있는 GitHub Rest Api를 사용하였다.&nbsp;&nbsp;</p>
+<p data-ke-size="size16"><a href="https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents" target="_blank" rel="noopener&nbsp;noreferrer">https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents</a></p>
+<figure id="og_1755429118171" contenteditable="false" data-ke-type="opengraph" data-ke-align="alignCenter" data-og-type="article" data-og-title="REST API endpoints for repository contents - GitHub Docs" data-og-description="Status: 201 { &quot;content&quot;: { &quot;name&quot;: &quot;hello.txt&quot;, &quot;path&quot;: &quot;notes/hello.txt&quot;, &quot;sha&quot;: &quot;95b966ae1c166bd92f8ae7d1c313e738c731dfc3&quot;, &quot;size&quot;: 9, &quot;url&quot;: &quot;https://api.github.com/repos/octocat/Hello-World/contents/notes/hello.txt&quot;, &quot;html_url&quot;: &quot;https://github.com/oct" data-og-host="docs.github.com" data-og-source-url="https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents" data-og-url="https://docs-internal.github.com/en/rest/repos/contents?apiVersion=2022-11-28" data-og-image="https://scrap.kakaocdn.net/dn/cHJ3Y2/hyZzJcLiY0/NmkRvTXTGUlq0oTbfgMG70/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/xnEtP/hyZyn9cyN7/SJ6Z4PzXN4m4Xhen7vEY2k/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/njouV/hyZzxQVJhE/X7Ilpf9rabrqUDGWLQ8kBk/img.png?width=597&amp;height=345&amp;face=0_0_597_345"><a href="https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents" target="_blank" rel="noopener" data-source-url="https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#create-or-update-file-contents">
+<div class="og-image" style="background-image: url('https://scrap.kakaocdn.net/dn/cHJ3Y2/hyZzJcLiY0/NmkRvTXTGUlq0oTbfgMG70/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/xnEtP/hyZyn9cyN7/SJ6Z4PzXN4m4Xhen7vEY2k/img.png?width=1200&amp;height=628&amp;face=0_0_1200_628,https://scrap.kakaocdn.net/dn/njouV/hyZzxQVJhE/X7Ilpf9rabrqUDGWLQ8kBk/img.png?width=597&amp;height=345&amp;face=0_0_597_345');">&nbsp;</div>
 <div class="og-text">
-<p class="og-title" data-ke-size="size16">FE Trend</p>
-<p class="og-desc" data-ke-size="size16">최신 프론트엔드 트렌드와 기술 정보를 제공합니다.</p>
-<p class="og-host" data-ke-size="size16">fe-trend.netlify.app</p>
+<p class="og-title" data-ke-size="size16">REST API endpoints for repository contents - GitHub Docs</p>
+<p class="og-desc" data-ke-size="size16">Status: 201 { "content": { "name": "hello.txt", "path": "notes/hello.txt", "sha": "95b966ae1c166bd92f8ae7d1c313e738c731dfc3", "size": 9, "url": "https://api.github.com/repos/octocat/Hello-World/contents/notes/hello.txt", "html_url": "https://github.com/oct</p>
+<p class="og-host" data-ke-size="size16">docs.github.com</p>
 </div>
 </a></figure>
+<p data-ke-size="size16">이것또한 공식문서에 잘 설명되어있다.</p>
+<p data-ke-size="size16">다만 조금 해맸던것이 rest api로 사용시 userAgent를 설정해줘야되는데 문서에 따로 표기가 안된건지 내가 못찾은건지 api가 정상동작하지 않아 곤란했으나 우여곡절끝에 해결하였다.</p>
+<pre id="code_1755429361628" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// worker.js
+function base64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+    // @ts-ignore
+    (_, p1) =&gt; String.fromCharCode('0x' + p1)
+  ));
+}
+...
+    const fileName = `${base64EncodeUnicode(requestJSON.title)}-${requestLanguage}.json`
+
+    const now = new Date();
+    const isoString = now.toISOString();
+
+    const data = {
+        content: responseText,
+        createdAt: isoString,
+        language: requestLanguage
+    }
+
+    const owner = "inho1019";
+    const repo = "front-end-trend";
+    const path = `public/archive/${fileName}`;
+    const branch = "archive";
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+
+    const body = {
+      message: "Add Archive",
+      content: base64EncodeUnicode(JSON.stringify(data)),
+      branch: branch,
+    };
+
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${env.GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version" : "2022-11-28",
+        "User-Agent": "CloudflareWorker" // 꼭설정해줘라!!!
+      },
+      body: JSON.stringify(body),
+    });
+  ...</code></pre>
+<p data-ke-size="size16">content, language, createdAt을 body에 담고 보내줬다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">깃허브 api사용시 주의점은 모든 데이터는 base64로 변환해줘야된다.&nbsp;</p>
+<p data-ke-size="size16">GPT가 한글까지 호환되는 base64인코드 함수를 짜줘서 해당 함수로 적용을 하였다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">이렇게 설정하고 클라이언트 상에서도 깃허브에 해당 파일이 존재하는지 검증하고, 미존재시 ai 요약 api를 사용하는 방식의 함수를 만들어 줬다.</p>
+<pre id="code_1755429707543" class="typescript" data-ke-language="typescript" data-ke-type="codeblock"><code>// src\shared\api\get\get-ai-summary.ts
+import i18next from "i18next";
+import { getContent } from "./get-content";
+import { Base64 } from "js-base64";
+
+type ArchiveData = {
+    content: string;
+    createdAt: string;
+    language: string;
+}
+
+export const getAiSummary = async (title: string, content: string) =&gt; {
+    const path = `${import.meta.env.VITE_ARCHIVE_PATH}${Base64.encode(title)}-${i18next.language.substring(0, 2)}.json`;
+    let octokitResponse;
+    try {
+        octokitResponse = await getContent&lt;ArchiveData&gt;(path, { ref: import.meta.env.VITE_ARCHIVE_REPO });
+    } catch {
+        octokitResponse = null;
+    }
+
+    if (octokitResponse?.data) {
+        return octokitResponse.data.content
+    }
+    const response = await fetch(import.meta.env.VITE_AI_API_URL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, content, language: i18next.language.substring(0, 2) }),
+    });
+    if (!response.ok) {
+        throw new Error("Failed to fetch AI summary");
+    }
+    return response.text();
+};</code></pre>
+<p data-ke-size="size16">getContent는 Octokit을 사용한 github 파일 조회 함수이다. 다른 챕터에서 다뤘기에 따로 다루지는 않겠다.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">아무튼 저런식으로 깃허브 해당 repo/branch에 해당 제목의 파일이 존재하는 검증후, 존재시 해당 파일을 가져오고 미존재시 ai 요약 api, 즉 상단 워커 api를 사용하도록 하였다.</p>
+<h4 data-ke-size="size20">총코드</h4>
+<pre id="code_1755429868382" class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>function base64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+    // @ts-ignore
+    (_, p1) =&gt; String.fromCharCode('0x' + p1)
+  ));
+}
+
+export default {
+  async fetch(request, env) {
+    const allowedOrigin = "https://fe-trend.netlify.app"; // 허용할 도메인
+    const origin = request.headers.get("Origin");
+
+    if (request.method === "OPTIONS") {
+      // Preflight 요청에 대한 응답
+      return new Response(null, {
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": origin === allowedOrigin ? allowedOrigin : "null",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Max-Age": "86400",
+        },
+      });
+    }
+
+    if (origin !== allowedOrigin) {
+      return new Response("CORS 정책에 의해 차단됨", { status: 403 });
+    }
+
+    if (request.method !== "POST") {
+      return new Response("POST 요청만 허용됩니다", { status: 405 });
+    }
+
+    const requestJSON = await request.json();
+    const requestContent = requestJSON.content.trim();
+    const requestLanguage = requestJSON.language;
+
+    if (!requestContent) {
+      return new Response("request 데이터가 없습니다", { status: 405 });
+    }
+
+    // GoogleGenAI API 호출용 fetch
+    const apiResponse = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": env.GEMINI_API_KEY,
+      },
+      body: JSON.stringify({
+        "contents": [
+          {
+            "parts": [
+              {
+                "text": `본문: ${requestContent}
+
+                  - 아래 조건을 꼭 지켜서 요약해줘:
+                  - 바로 dangerouslySetInnerHTML에 사용할 수 있게, 불필요한 마크다운 문법(예: \`\`\`html, \`\`\`) 없이 순수 HTML 태그만 출력할 것
+                  - 요약시 ${requestLanguage} 언어로 번역할 것`
+              }
+            ]
+          }
+        ],
+      }),
+    });
+
+    const responseData = await apiResponse.json();
+    const responseText = responseData.candidates?.[0]?.content?.parts?.[0]?.text
+
+    if (!responseText) {
+      return new Response("response 데이터가 없습니다", { status: 405 });
+    }
+
+    const fileName = `${base64EncodeUnicode(requestJSON.title)}-${requestLanguage}.json`
+
+    const now = new Date();
+    const isoString = now.toISOString();
+
+    const data = {
+        content: responseText,
+        createdAt: isoString,
+        language: requestLanguage
+    }
+
+    const owner = "inho1019";
+    const repo = "front-end-trend";
+    const path = `public/archive/${fileName}`;
+    const branch = "archive";
+
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+
+    const body = {
+      message: "Add Archive",
+      content: base64EncodeUnicode(JSON.stringify(data)),
+      branch: branch,
+    };
+
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${env.GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version" : "2022-11-28",
+        "User-Agent": "CloudflareWorker"
+      },
+      body: JSON.stringify(body),
+    });
+
+    return new Response(responseText, {
+      status: apiResponse.status,
+      headers: {
+        "Content-Type": "text/plain",
+        "Access-Control-Allow-Origin": allowedOrigin,
+      },
+    });
+  }
+}</code></pre>
+<h4 data-ke-size="size20">테스트</h4>
+<p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="37.gif" data-origin-width="1279" data-origin-height="897"><span data-url="https://blog.kakaocdn.net/dn/Rb90y/btsPUTDiQaB/LJ7ohUtD1bdYlBLVeKn5q1/img.gif" data-phocus="https://blog.kakaocdn.net/dn/Rb90y/btsPUTDiQaB/LJ7ohUtD1bdYlBLVeKn5q1/img.gif"><img src="https://blog.kakaocdn.net/dn/Rb90y/btsPUTDiQaB/LJ7ohUtD1bdYlBLVeKn5q1/img.gif" srcset="https://blog.kakaocdn.net/dn/Rb90y/btsPUTDiQaB/LJ7ohUtD1bdYlBLVeKn5q1/img.gif" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1279" height="897" data-filename="37.gif" data-origin-width="1279" data-origin-height="897"/></span></figure>
+</p>
+<hr contenteditable="false" data-ke-type="horizontalRule" data-ke-style="style6" />
+<p data-ke-size="size16">어쩌다보니 계속 고도화 작업만 하는중...다음에는 아카이브한 파일들 기반으로 아카이브 페이지를 만들어야겠다.</p>
 </details>
