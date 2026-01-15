@@ -28,6 +28,8 @@
   <ul>
 
 <li>
+    <a href="https://inho-m.tistory.com/21">얕은복사와 깊은복사</a>
+</li><li>
     <a href="https://inho-m.tistory.com/20">고정소수점과 부동소수점</a>
 </li><li>
     <a href="https://inho-m.tistory.com/19">튜플 타입을 사용해야하는 이유</a>
@@ -35,8 +37,6 @@
     <a href="https://inho-m.tistory.com/18">FE Trend 개발기 #8 - AI 요약 기능 추가 (고도화)</a>
 </li><li>
     <a href="https://inho-m.tistory.com/17">FE Trend 개발기 #7 - 코드 에디터 추가 및 개선(고도화)</a>
-</li><li>
-    <a href="https://inho-m.tistory.com/16">정적 페이지 데이터 압축으로 트래픽 줄이기 (feat. fflate)</a>
 </li>
   </ul>
   <a href="https://inho-m.tistory.com">전체글보기</a>
@@ -45,11 +45,32 @@
 ### Recent Post
 
 <details>
-<summary>고정소수점과 부동소수점</summary>
+<summary>얕은복사와 깊은복사</summary>
 <br/>
-<p data-ke-size="size16">일단 말그대로 이해하여 비트기준 소수점이 고정, 부동으로 이해하면 편하다</p>
-<h3 data-ke-size="size23">고정소수점</h3>
-<p data-ke-size="size16">정수 비트과 소수점 비트들 사이에 소수점을 고정해두고 거기에 숫자들만 변경 하는 형식이다.<br /><code>[부호 비트(0 or 1)][정수 비트들 (1~31)] .(소수점) [소수 비트들(1~31)]</code> <br />사실 소수점 보다는 정수 비트와 소수 비트에 벽이 있다고 생각하는게 좀더 옳은 표현, 양쪽 방에 비트의 상태를 바쑤어 숫자를 변경. 정밀하게 계산이 가능</p>
-<h3 data-ke-size="size23">부동소수점</h3>
-<p data-ke-size="size16">부동소수점은 위와 다른 방식으로 접근한다. 숫자 비트 묶음이 존재하고 소수점 위치를 다른 비트 묶음으로 지정해준다. <br /><code>[부호 비트(1)][소수점 위치 알려주는 비트들(8)][숫자 비트들(23)]</code> <br />해당 방식으로 구현하여 표현방식에 있어 유리함을 가져옴 그러나 숫자가 듬성듬성 함 ex:) 100000 다음은 100005 이런식으로</p>
+<h3>얕은 복사</h3>
+<p>object 속성이 다른 참조를 가지는 복사, 그러나 object 내의 속성중 object가 있을 경우 그 object는 같은 참조를 가진다. (객체 중첩)</p>
+<pre><code class="language-jsx">const obj = { a: &quot;a&quot;, b: { c: &quot;c&quot; } }
+const shallowCopy = {...obj}
+or
+const shallowCopy = Object.assign({}, obj)
+
+shallowCopy.a = &quot;abc&quot;
+shallowCopy.b.c = &quot;cba&quot;
+
+console.log(obj.a) // &quot;a&quot;
+console.log(obj.b.c) // &quot;cba&quot;  </code></pre>
+<p>위처럼 얕은 복사로 인하여 같은 참조를 가지는 c 속성은 변경에 영향을 받는다</p>
+<h3>깊은 복사</h3>
+<p>위와 같은 참조 문제를 해결하려면 깊은 복사를 해야함. 가장 쉬운방법은 JSON.stringpy로 직렬화 한 이후에 parse로 다시 파싱하는 방법이 있다</p>
+<pre><code class="language-jsx">const obj = { a: &quot;a&quot;, b: { c: &quot;c&quot; } }
+const deepCopy = JSON.parse(JSON.stringfy()obj)
+
+deepCopy.a = &quot;abc&quot;
+deepCopy.b.c = &quot;cba&quot;
+
+console.log(obj.a) // &quot;a&quot;
+console.log(obj.b.c) // &quot;c&quot;  </code></pre>
+<p>하지만 이 방식도 문제가 있는게 내부에 직렬화 불가한 속성(Symbol 같은)이 있을시 제대로된 처리가 이루어 지지 않는다.</p>
+<h3>최종 해결법은?</h3>
+<p>lodash 같은 라이브러리를 사용하는게 좋아보인다.</p>
 </details>
