@@ -28,15 +28,15 @@
   <ul>
 
 <li>
+    <a href="https://inho-m.tistory.com/24">믹스인/트레잇</a>
+</li><li>
+    <a href="https://inho-m.tistory.com/23">패스포트와 세션을 사용한 인증</a>
+</li><li>
     <a href="https://inho-m.tistory.com/22">React에서의 전역 스코프</a>
 </li><li>
     <a href="https://inho-m.tistory.com/21">얕은복사와 깊은복사</a>
 </li><li>
     <a href="https://inho-m.tistory.com/20">고정소수점과 부동소수점</a>
-</li><li>
-    <a href="https://inho-m.tistory.com/19">튜플 타입을 사용해야하는 이유</a>
-</li><li>
-    <a href="https://inho-m.tistory.com/18">FE Trend 개발기 #8 - AI 요약 기능 추가 (고도화)</a>
 </li>
   </ul>
   <a href="https://inho-m.tistory.com">전체글보기</a>
@@ -45,32 +45,52 @@
 ### Recent Post
 
 <details>
-<summary>React에서의 전역 스코프</summary>
+<summary>믹스인/트레잇</summary>
 <br/>
-<p data-ke-size="size16">모든 코드에서 접근할수 있는 가장 바깥쪽 범위에서 선언하는 스코프를 전역 스코프라고 한다.</p>
-<p data-ke-size="size16">여기서 React 사용 개발자로서 뭔가 와닿지 않을수도 있다.</p>
-<p data-ke-size="size16"><br />&rdquo;특정 파일에서 var로 선언하면 전역 스코프인거 아니야?&rdquo; 라는 생각이 들수 있는데 다시 보면 이렇게 선언한것은 아래에 설명할 모듈 스코프의 특징과 일치한다. <span style="font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Apple SD Gothic Neo', Arial, sans-serif; letter-spacing: 0px;">그러기에 위에서 설명한 &ldquo;모든 코드&rdquo;라는 의미에 접근하여야한다.</span></p>
+<p data-ke-size="size16">클래스를 여러 파츠로 쪼개서 필요한 부분만 사용하거나 합쳐서 사용하는 것이 가능하다.</p>
+<p data-ke-size="size16">이것을 <b>믹스인/트레잇</b> 방식이라고 부름</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">우리가 코딩을 할때 console 이나 Math같이 선언 없이 사용할수 있는 이름들이 있다. 이것들은 사실 앞에 전역 객체가 생략되어 사용된 것들이다. window, self, global... 등등 환경에 따라 전역 객체의 이름은 다르지만 <code>ECMAScript 2020</code> 애서는 globalThis로 이름을 표준화 하였다.</p>
-<p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">그래서 방금 설명한게 뭐냐 &ldquo;모든 코드에서 접근 가능&rdquo;은 다른 말로 &ldquo;전역 객체에 등록하는 것&rdquo; 이라고 볼수 있다.<br />그럼 React에서 전역 객체를 어떻게 등록할까? 방법은 크게 두가지가 있다.</p>
-<h3 data-ke-size="size23">index.html의 script 태그 내에 직접 변수 선언</h3>
-<pre class="xml"><code>&lt;script&gt;
-  // 브라우저가 로딩되자마자 전역에 박힘
-  var myGlobal = "I am Global"; 
-&lt;/script&gt;</code></pre>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li><b>특징:</b> React 앱이 실행되기도 전에 변수가 존재한다.</li>
-<li><b>단점:</b> <code>.env</code> 환경변수 같은 모던 빌드 시스템의 이점을 활용하기 어렵고, 코드가 분산됨.</li>
-</ul>
-<h3 data-ke-size="size23">글로벌 객체에 직접 주입</h3>
-<pre class="clean"><code>import React from 'react';
+<p data-ke-size="size16">예시로 보면 간단하다.</p>
+<pre class="scala"><code>// 1. 기본 타입을 정의 (이건 문법적인 약속입니다. "생성자 기능이 있는 모든 것")
+type Constructor = new (...args: any[]) =&gt; {};
 
-// 명시적으로 window 객체에 주입
-globalThis.myGlobal = "I am Global via JS"; </code></pre>
-<ul style="list-style-type: disc;" data-ke-list-type="disc">
-<li><b>특징:</b> React 환경에 직접 주입, 그리고 위의 단점을 파훼할 수 있다.</li>
-<li><b>단점:</b> 최상위 (<code>App.js</code> 등..)에서 사용하지 않으면 해당 모듈(파일)이 불러오기 전까지 주입되지 않는다. 그러니 가급적 최상위에 사용</li>
-</ul>
-<p data-ke-size="size16">위 두 방식이 React에서 의 전역 스코프를 만드는 방식이다. 사실 React 환경에서는 외부 라이브러리 초기화 외에는 저런방식으로 접근할 이유는 없지만 프로그래머로서 이런 본질적인 고민을 해보는건 프레임워크나 작동방식의 이해에 있어서 좋은 것 같다.</p>
+// 2. [믹스인 1] 싸움 능력 부품
+function CanFight&lt;T extends Constructor&gt;(Base: T) {
+  return class extends Base {
+    attack() {
+      console.log('  펀치를 날립니다!');
+    }
+  };
+}
+
+// 3. [믹스인 2] 운전 능력 부품
+function CanDrive&lt;T extends Constructor&gt;(Base: T) {
+  return class extends Base {
+    drive() {
+      console.log('  부릉부릉 운전합니다!');
+    }
+  };
+}
+
+// 4. 기본 클래스 (사람)
+class Human {
+  speak() {
+    console.log('안녕, 나는 사람이야.');
+  }
+}
+
+// ---------------------------------------------
+// 5. 믹스인으로 조립하기! (이게 핵심)
+// Human에 싸움 능력(CanFight)과 운전 능력(CanDrive)을 입힘
+class Spy extends CanDrive(CanFight(Human)) {}
+
+// 6. 사용해보기
+const jamesBond = new Spy();
+
+jamesBond.speak();  // 기본 기능 (Human)
+jamesBond.attack(); // 추가된 기능 1 (CanFight)
+jamesBond.drive();  // 추가된 기능 2 (CanDrive)</code></pre>
+<p data-ke-size="size16">이런 방식으로 기본 클래스에 필요한 클래스를 덧입히는 느낌.</p>
+<p data-ke-size="size16">&nbsp;</p>
+<p data-ke-size="size16">확장성이 필요한 클래스에 사용하면 좋을것 같다!</p>
 </details>
