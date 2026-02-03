@@ -28,6 +28,8 @@
   <ul>
 
 <li>
+    <a href="https://inho-m.tistory.com/25">네트워크 관리사 2급 실기 모의고사 사이트</a>
+</li><li>
     <a href="https://inho-m.tistory.com/24">믹스인/트레잇</a>
 </li><li>
     <a href="https://inho-m.tistory.com/23">패스포트와 세션을 사용한 인증</a>
@@ -35,8 +37,6 @@
     <a href="https://inho-m.tistory.com/22">React에서의 전역 스코프</a>
 </li><li>
     <a href="https://inho-m.tistory.com/21">얕은복사와 깊은복사</a>
-</li><li>
-    <a href="https://inho-m.tistory.com/20">고정소수점과 부동소수점</a>
 </li>
   </ul>
   <a href="https://inho-m.tistory.com">전체글보기</a>
@@ -45,52 +45,16 @@
 ### Recent Post
 
 <details>
-<summary>믹스인/트레잇</summary>
+<summary>네트워크 관리사 2급 실기 모의고사 사이트</summary>
 <br/>
-<p data-ke-size="size16">클래스를 여러 파츠로 쪼개서 필요한 부분만 사용하거나 합쳐서 사용하는 것이 가능하다.</p>
-<p data-ke-size="size16">이것을 <b>믹스인/트레잇</b> 방식이라고 부름</p>
+<p data-ke-size="size18"><b><span style="color: #0070d1; text-align: start;"><a href="https://network-administrator-level2-practica.netlify.app/">https://network-administrator-level2-practica.netlify.app/</a></span></b></p>
+<p data-ke-size="size18">&nbsp;</p>
+<p data-ke-size="size18">Claude Sonnet 4.5 모델로 바이브 코딩하여 생성 하였다.</p>
+<p data-ke-size="size18">&nbsp;</p>
+<p data-ke-size="size18">내부에 들어가 있는 문제는 일일히 확인해 신뢰성은 높으나 기존 에뮬레이터나 GUI와는 차이가 있으므로 Mac환경이나 모바일 환경에서 간단히 테스트 하기에는 좋을듯</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">예시로 보면 간단하다.</p>
-<pre class="scala"><code>// 1. 기본 타입을 정의 (이건 문법적인 약속입니다. "생성자 기능이 있는 모든 것")
-type Constructor = new (...args: any[]) =&gt; {};
-
-// 2. [믹스인 1] 싸움 능력 부품
-function CanFight&lt;T extends Constructor&gt;(Base: T) {
-  return class extends Base {
-    attack() {
-      console.log('  펀치를 날립니다!');
-    }
-  };
-}
-
-// 3. [믹스인 2] 운전 능력 부품
-function CanDrive&lt;T extends Constructor&gt;(Base: T) {
-  return class extends Base {
-    drive() {
-      console.log('  부릉부릉 운전합니다!');
-    }
-  };
-}
-
-// 4. 기본 클래스 (사람)
-class Human {
-  speak() {
-    console.log('안녕, 나는 사람이야.');
-  }
-}
-
-// ---------------------------------------------
-// 5. 믹스인으로 조립하기! (이게 핵심)
-// Human에 싸움 능력(CanFight)과 운전 능력(CanDrive)을 입힘
-class Spy extends CanDrive(CanFight(Human)) {}
-
-// 6. 사용해보기
-const jamesBond = new Spy();
-
-jamesBond.speak();  // 기본 기능 (Human)
-jamesBond.attack(); // 추가된 기능 1 (CanFight)
-jamesBond.drive();  // 추가된 기능 2 (CanDrive)</code></pre>
-<p data-ke-size="size16">이런 방식으로 기본 클래스에 필요한 클래스를 덧입히는 느낌.</p>
+<h4 data-ke-size="size20"><b>네트워크 관리사 2급 자격증 취득을 응원합니다! ✨</b></h4>
+<p><figure class="imageblock alignLeft" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2026-02-03 오후 4.56.14.png" data-origin-width="1634" data-origin-height="1590"><span data-url="https://blog.kakaocdn.net/dn/boKlz6/dJMcaaKVntg/h2zG39reDJXm6LMVNrVA0K/img.png" data-phocus="https://blog.kakaocdn.net/dn/boKlz6/dJMcaaKVntg/h2zG39reDJXm6LMVNrVA0K/img.png"><img src="https://blog.kakaocdn.net/dn/boKlz6/dJMcaaKVntg/h2zG39reDJXm6LMVNrVA0K/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FboKlz6%2FdJMcaaKVntg%2Fh2zG39reDJXm6LMVNrVA0K%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="638" height="621" data-filename="스크린샷 2026-02-03 오후 4.56.14.png" data-origin-width="1634" data-origin-height="1590"/></span></figure>
+</p>
 <p data-ke-size="size16">&nbsp;</p>
-<p data-ke-size="size16">확장성이 필요한 클래스에 사용하면 좋을것 같다!</p>
 </details>
