@@ -51,7 +51,7 @@
 <p data-ke-size="size18">&nbsp;</p>
 <p data-ke-size="size18">Claude Sonnet 4.5 모델로 바이브 코딩하여 생성 하였다.</p>
 <p data-ke-size="size18">&nbsp;</p>
-<p data-ke-size="size18">내부에 들어가 있는 문제는 일일히 확인해 신뢰성은 높으나 기존 에뮬레이터나 GUI와는 차이가 있으므로 Mac환경이나 모바일 환경에서 간단히 테스트 하기에는 좋을듯</p>
+<p data-ke-size="size18">실제 에뮬레이터나 GUI와는 차이가 있으므로 Mac환경이나 모바일 환경에서 간단히 테스트 하기에는 좋을듯</p>
 <p data-ke-size="size16">&nbsp;</p>
 <h4 style="color: #000000;" data-ke-size="size20"><b>네트워크 관리사 2급 자격증 취득을 응원합니다! ✨</b></h4>
 <p><figure class="imageblock widthContent" data-ke-mobileStyle="widthOrigin" data-filename="스크린샷 2026-02-03 오후 5.57.09.png" data-origin-width="1484" data-origin-height="756"><span data-url="https://blog.kakaocdn.net/dn/LivJ7/dJMcacIKXOn/zGSBHRbh8TK90BcN65TkSk/img.png" data-phocus="https://blog.kakaocdn.net/dn/LivJ7/dJMcacIKXOn/zGSBHRbh8TK90BcN65TkSk/img.png"><img src="https://blog.kakaocdn.net/dn/LivJ7/dJMcacIKXOn/zGSBHRbh8TK90BcN65TkSk/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FLivJ7%2FdJMcacIKXOn%2FzGSBHRbh8TK90BcN65TkSk%2Fimg.png" onerror="this.onerror=null; this.src='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png'; this.srcset='//t1.daumcdn.net/tistory_admin/static/images/no-image-v1.png';" loading="lazy" width="1484" height="756" data-filename="스크린샷 2026-02-03 오후 5.57.09.png" data-origin-width="1484" data-origin-height="756"/></span></figure>
